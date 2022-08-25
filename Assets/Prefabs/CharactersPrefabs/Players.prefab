@@ -97,6 +97,7 @@ Transform:
   - {fileID: 7011044140387808625}
   - {fileID: 6787216942676936338}
   - {fileID: 7226383969461655750}
+  - {fileID: 664929129474552680}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerIdentity: 0
   _inputsMode: 0
+  _playerStats: {fileID: 0}
 --- !u!114 &4535814313446992461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +331,61 @@ MonoBehaviour:
   - {fileID: 3160881304158233859}
   - {fileID: 9006447444897755333}
   - {fileID: 5175488860292709148}
+--- !u!1 &7360343416419456289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664929129474552680}
+  - component: {fileID: 702669673814556938}
+  m_Layer: 12
+  m_Name: Stats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &664929129474552680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360343416419456289}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2294596468053729218}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702669673814556938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360343416419456289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca9558f3ef7ff34b878c001ed758236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playersMaxHP: {fileID: 11400000, guid: 7bd90d062cfbea04581addc8026586ec, type: 2}
+  _playersMaxMP: {fileID: 11400000, guid: 1ce7b1ca887b14c4fbc7b356e08343e0, type: 2}
+  _playersMaxLife: {fileID: 11400000, guid: 0f8c31620ab5d9844aa748b7f87c332a, type: 2}
+  _player1Stats:
+  - {fileID: 11400000, guid: a40f24c0c7117e84b864e1c99bf567a9, type: 2}
+  - {fileID: 11400000, guid: 99807ca3a3ad3f44c85400d5d05356e4, type: 2}
+  - {fileID: 11400000, guid: 0a56988d66dee264687bfe70b23f76e5, type: 2}
+  _player2Stats:
+  - {fileID: 11400000, guid: 362ca6789013c4140b608f7989972b33, type: 2}
+  - {fileID: 11400000, guid: e0eef10887c0d5a49b11c1db1b7b50b5, type: 2}
+  - {fileID: 11400000, guid: b83777bcdd9310b4bb29c026a97bc224, type: 2}
 --- !u!1001 &321528321930499358
 PrefabInstance:
   m_ObjectHideFlags: 0
