@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 9014999511532386172}
   m_Layer: 13
   m_Name: Doppelgangers
-  m_TagString: Untagged
+  m_TagString: Doppelgangers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,3 +181,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerIdentity: 0
+  _doppelgangersCount: {fileID: 11400000, guid: 40328b9b3b4a8734cb10c41076653b1f, type: 2}
