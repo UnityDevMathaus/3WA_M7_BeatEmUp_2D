@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Doppelgangers
+  - FinalBosses
+  - Bosses
+  - Enemies
   layers:
   - Default
   - TransparentFX
