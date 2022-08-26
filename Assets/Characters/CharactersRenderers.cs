@@ -24,4 +24,9 @@ public class CharactersRenderers : MonoBehaviour
     {
         _renderer.sprite = _sprites[(int)_playerIdentity];
     }
+
+    public void SetSpritesByIndex(int index)
+    {
+        _renderer.sprite = _sprites[index];
+    }
 }
