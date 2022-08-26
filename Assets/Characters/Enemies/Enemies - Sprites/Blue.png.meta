@@ -1550,7 +1550,6 @@ TextureImporter:
     nameFileIdTable:
       Blue_12: 1336367082
       Blue_15: -396485601
-      Blue_62: -862346907
       Blue_65: -573934636
       Blue_52: 1019838091
       Blue_42: 387659737
@@ -1604,16 +1603,17 @@ TextureImporter:
       Blue_23: 152255562
       Blue_8: -1430860375
       Blue_48: -2136904515
+      Blue_62: -862346907
       Blue_53: -1934560731
       Blue_7: 50075923
-      Blue_60: -381502950
       Blue_2: 1500514205
+      Blue_54: 1733699777
       Blue_38: -2122072411
       Blue_4: -1149505865
-      Blue_43: -876475220
+      Blue_60: -381502950
       Blue_28: 2057763986
+      Blue_43: -876475220
       Blue_46: -430659648
-      Blue_54: 1733699777
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

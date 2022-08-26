@@ -13,7 +13,7 @@ public class Players : MonoBehaviour
     void Start()
     {
         GetComponentInChildren<PlayersInputs>().ActiveInputs(_inputsMode);
-        GetComponentInChildren<PlayersRenderers>().SetPlayerSprite(_playerIdentity);
+        GetComponentInChildren<CharactersRenderers>().SetPlayersSprites(_playerIdentity);
         _playerStats = GetComponentInChildren<PlayersStats>();
         _playerStats.CurrentPlayer = _currentPlayer;
         _playerStats.ResetCurrentPlayerStats();

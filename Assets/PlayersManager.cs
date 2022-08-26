@@ -11,7 +11,7 @@ public class PlayersManager : MonoBehaviour
     {
         if (!_currentPlayerMode.Equals(CurrentPlayer.P2))
         {
-            KillPlayer(_p2);
+            //KillPlayer(_p2);
         }
     }
 
