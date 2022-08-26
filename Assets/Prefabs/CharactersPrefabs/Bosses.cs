@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bosses : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private BossesIdentities _bossIdentity;
+    private CharactersRenderers _renderer;
+
+    void Awake()
     {
-        
+        _renderer = GetComponentInChildren<CharactersRenderers>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        _renderer.SetBossesSprites(_bossIdentity);
     }
 }

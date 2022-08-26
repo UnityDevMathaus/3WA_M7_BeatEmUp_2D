@@ -3,10 +3,14 @@ using UnityEngine;
 public class Doppelgangers : MonoBehaviour
 {
     [SerializeField] private PlayersIdentities _playerIdentity;
+    private CharactersRenderers _renderer;
 
     void Awake()
     {
-        GetComponentInChildren<CharactersRenderers>().SetPlayersSprites(_playerIdentity);
+        _renderer = GetComponentInChildren<CharactersRenderers>();
     }
-
+    void Start()
+    {
+        _renderer.SetPlayersSprites(_playerIdentity);
+    }
 }
