@@ -6,9 +6,9 @@ public class Players : MonoBehaviour
     [SerializeField] private CurrentPlayer _currentPlayer;
     [SerializeField] private PlayersInputsList _inputsMode;
     private PlayersStats _playerStats;
-    private IntVariable _playerHP;
-    private IntVariable _playerMP;
-    private IntVariable _playerLife;
+    private IntVariable _playerHP; public IntVariable PlayerHP { get => _playerHP; set => _playerHP = value; }
+    private IntVariable _playerMP; public IntVariable PlayerMP { get => _playerMP; set => _playerMP = value; }
+    private IntVariable _playerLife; public IntVariable PlayerLife { get => _playerLife; set => _playerLife = value; }
 
     void Start()
     {
