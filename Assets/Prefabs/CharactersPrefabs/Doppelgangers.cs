@@ -24,6 +24,6 @@ public class Doppelgangers : MonoBehaviour
     }
     private void DebugKillMeDoppelgangers()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha4)) Destroy(gameObject);
+        if (Input.GetKeyDown(KeyCode.Alpha4) && gameObject !=null) Destroy(gameObject);
     }
 }

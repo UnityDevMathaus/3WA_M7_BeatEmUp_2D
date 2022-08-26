@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34cc7d2689c5b54ca11a4f3664d56d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentPlayerMode: 0
+  _p1: {fileID: 0}
+  _p2: {fileID: 0}
 --- !u!114 &750810575228208773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63397cd6288f8b54ca9cc8687eb6cfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doppelgangersCount: {fileID: 11400000, guid: 40328b9b3b4a8734cb10c41076653b1f, type: 2}
 --- !u!114 &5644719801426613281
 MonoBehaviour:
   m_ObjectHideFlags: 0
