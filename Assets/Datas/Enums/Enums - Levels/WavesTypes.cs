@@ -4,5 +4,5 @@ public enum WavesTypes
     BOSSES,
     DOPPELGANGERS,
     FINALBOSSES,
-    DIALOGUES
+    DIALOGS
 }

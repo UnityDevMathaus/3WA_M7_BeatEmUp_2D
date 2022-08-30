@@ -2,33 +2,70 @@ using UnityEngine;
 
 public class Waves : MonoBehaviour
 {
+    #region VARIABLES SERIALISEES
     [SerializeField] private WavesTypes _waveType;
     [SerializeField] private float _delayBeforeWaveStart = 2f; public float DelayBeforeWaveStart { get => _delayBeforeWaveStart; }
+    #endregion
+    #region AUTRES VARIABLES
     private Levels _currentLevel;
     private IManager _entitiesManager;
-
-    private int _entitiesNextRemaining;
     private int _entitiesCount;
-    
+    private int _entitiesNextRemaining;
     private bool _goToNextWave; public bool GoToNextWave { get => _goToNextWave; }
-
+    #endregion
+    #region API UNITY
     void Awake()
     {
-        _currentLevel = GameObject.FindGameObjectWithTag("Level").GetComponent<Levels>();
+        SettingWavesAtAwake();
         SetWaveType();
     }
-
+    void Start()
+    {
+        SetNextEntitiesRemaining();
+    }
     void Update()
     {
-        if (_waveType != WavesTypes.DIALOGUES)
-        {          
-            _goToNextWave = (_entitiesNextRemaining == _entitiesManager.EntitiesRemaining());
-        } else
+        WavesMecanics();
+    }
+    #endregion
+    #region FONCTIONS
+    /// <summary>
+    /// Mécaniques des Waves :
+    /// Tant qu'une Wave n'est pas de type DIALOGS,
+    /// On vérifie si le nombre d'entitées restantantes de la Wave correspond au nombre d'entitées restantes du Level,
+    /// Si c'est le cas, la propriété GoToNextWave passe à true.
+    /// Si, c'est une Wave de type DIALOGS, on attend un délai.
+    /// Puis une fois le délai passé, on passe la propriété GoToNextWave à true.
+    /// </summary>
+    private void WavesMecanics()
+    {
+        if (_waveType != WavesTypes.DIALOGS)
         {
+            _goToNextWave = (_entitiesNextRemaining == _entitiesManager.EntitiesRemaining());
+        }
+        else
+        {
+            //todo : delai des dialogs.
             _goToNextWave = true;
         }
     }
-
+    /// <summary>
+    /// Récupère le composant Level du parent.
+    /// Déclenche une exception si la variable est nulle.
+    /// </summary>
+    private void SettingWavesAtAwake()
+    {
+        GameObject level = GameObject.FindGameObjectWithTag("Level");
+        if (level) _currentLevel = level.GetComponent<Levels>();
+        else
+        {
+            throw new System.Exception("GameObject with tag Level not found.");
+        }
+    }
+    /// <summary>
+    /// Assigne le type de Wave en fonction du paramètre sérialisé de l'inspector.
+    /// Défini ensuite le nombre d'entitées de la Wave et le IManager associé.
+    /// </summary>
     private void SetWaveType()
     {
         switch (_waveType)
@@ -49,12 +86,21 @@ public class Waves : MonoBehaviour
                 _entitiesCount = FindObjectsOfType<FinalBosses>().Length;
                 _entitiesManager = _currentLevel.FinalBossesManager;
                 break;
-            case WavesTypes.DIALOGUES:
+            case WavesTypes.DIALOGS:
                 _entitiesCount = 0;
                 break;
             default:
                 break;
         }
-        _entitiesNextRemaining = _entitiesManager.EntitiesRemaining() - _entitiesCount;
     }
+    /// <summary>
+    /// Si la Wave n'est pas de type DIALOGS,
+    /// calcule le nombre d'entitées restantes pour les Waves suivantes.
+    /// (note : On en déduiera que si ce nombre est égal au nombre total d'entitées restantes, c'est que la Wave est clear.)  
+    /// </summary>
+    private void SetNextEntitiesRemaining()
+    {
+        if (_waveType != WavesTypes.DIALOGS) _entitiesNextRemaining = _entitiesManager.EntitiesRemaining() - _entitiesCount;
+    }
+    #endregion
 }

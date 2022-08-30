@@ -8,6 +8,7 @@ TagManager:
   - FinalBosses
   - Bosses
   - Enemies
+  - Level
   layers:
   - Default
   - TransparentFX
