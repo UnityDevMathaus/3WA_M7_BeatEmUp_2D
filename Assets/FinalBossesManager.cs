@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FinalBossesManager : MonoBehaviour
+public class FinalBossesManager : MonoBehaviour, IManager
 {
     [SerializeField] private IntVariable _finalBossesCount;
 
@@ -9,9 +9,8 @@ public class FinalBossesManager : MonoBehaviour
         _finalBossesCount.Value = GameObject.FindGameObjectsWithTag("FinalBosses").Length;
     }
 
-    public int FinalBossesRemaining()
+    public int EntitiesRemaining()
     {
         return _finalBossesCount.Value;
     }
-
 }

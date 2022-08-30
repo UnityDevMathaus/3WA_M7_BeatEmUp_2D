@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoppelgangersManager : MonoBehaviour
+public class DoppelgangersManager : MonoBehaviour, IManager
 {
     [SerializeField] private IntVariable _doppelgangersCount;
 
@@ -9,9 +9,9 @@ public class DoppelgangersManager : MonoBehaviour
         _doppelgangersCount.Value = FindObjectsOfType<Doppelgangers>(true).Length;
     }
 
-    public int DoppelgangersRemaining()
+    public int EntitiesRemaining()
     {
+        Debug.Log(_doppelgangersCount.Value);
         return _doppelgangersCount.Value;
     }
-
 }

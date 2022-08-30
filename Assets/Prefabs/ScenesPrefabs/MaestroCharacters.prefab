@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93358182abaa0624db608f5e10db6752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemiesCount: {fileID: 11400000, guid: d541dc6d6c683c640ac5bcb9ed22049d, type: 2}
 --- !u!114 &7206631800229968264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e80f598f06779418dbdfadb0cee861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bossesCount: {fileID: 11400000, guid: 330d2b90e18ac944988328732f3fff7a, type: 2}
 --- !u!114 &5562134364763858828
 MonoBehaviour:
   m_ObjectHideFlags: 0

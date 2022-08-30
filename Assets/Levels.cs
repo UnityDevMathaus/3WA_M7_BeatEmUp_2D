@@ -7,10 +7,10 @@ public class Levels : MonoBehaviour
     [SerializeField] private IntVariable _currentScene;
     [SerializeField] private GameObject _maestroCharacters;
     private PlayersManager _playersManager;
-    private FinalBossesManager _finalBossesManager;
-    private DoppelgangersManager _doppelgangersManager;
-    private BossesManager _bossesManager;
-    private EnemiesManager _enemiesManager;
+    private FinalBossesManager _finalBossesManager; public FinalBossesManager FinalBossesManager { get => _finalBossesManager; }
+    private DoppelgangersManager _doppelgangersManager; public DoppelgangersManager DoppelgangersManager { get => _doppelgangersManager; }
+    private BossesManager _bossesManager; public BossesManager BossesManager { get => _bossesManager; }
+    private EnemiesManager _enemiesManager; public EnemiesManager EnemiesManager { get => _enemiesManager; }
 
     private void Awake()
     {
@@ -31,10 +31,10 @@ public class Levels : MonoBehaviour
 
     private void GoToNextLevelWhenCleared()
     {
-        if (_finalBossesManager.FinalBossesRemaining() == 0 && _doppelgangersManager.DoppelgangersRemaining() == 0)
-        {
-            _sceneLoader.GoToNextLevel();
-        }
+        //if (_finalBossesManager.FinalBossesRemaining() == 0 && _doppelgangersManager.DoppelgangersRemaining() == 0)
+        //{
+        //    _sceneLoader.GoToNextLevel();
+        //}
     }
     private void GoToNextWaveWhenCleared()
     {
