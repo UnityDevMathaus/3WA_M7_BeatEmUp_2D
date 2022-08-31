@@ -59,7 +59,7 @@ GameObject:
   m_Layer: 13
   m_Name: Bosses
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -91,3 +91,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcf46a70159ad84ba9bf3074e8b4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bossIdentity: 0
