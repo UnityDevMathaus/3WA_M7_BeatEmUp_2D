@@ -3,9 +3,8 @@ using UnityEngine;
 public class PlayersManager : MonoBehaviour
 {
     [SerializeField] CurrentPlayer _currentPlayerMode;
-    [SerializeField] Players _p1;
-    [SerializeField] Players _p2;
-    
+    [SerializeField] private Players _p1; public Players P1 { get => _p1; }
+    [SerializeField] private Players _p2; public Players P2 { get => _p2; }
 
     private void Start()
     {

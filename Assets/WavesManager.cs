@@ -6,7 +6,7 @@ public class WavesManager : MonoBehaviour
     [SerializeField] private Levels _currentLevel;
     [SerializeField] private Waves[] _waves;
     #endregion
-    #region VARIABLES
+    #region AUTRES VARIABLES
     private Waves _currentWave;
     private int _currentWaveIndex;
     private float _timeForStartingWave;
@@ -32,7 +32,8 @@ public class WavesManager : MonoBehaviour
     /// Mécaniques du WavesManager :
     /// Tant qu'une Wave existe, et que le délais d'attente de la Wave est passé,
     /// On vérifie qu'il ne s'agit pas de la dernière Wave,
-    /// Si c'est le cas, on la détruit et on modifie la variable AllWavesCleared du Level à true.
+    /// Si c'est le cas, on la détruit et on modifie la variable AllWavesCleared du Level à true,
+    /// puis on désactive et détruit le GameObject du WavesManager.
     /// Sinon, si la Wave est terminée, on réinitialise le timer et on change de Wave.
     /// </summary>
     private void WavesMecanics()
@@ -43,6 +44,7 @@ public class WavesManager : MonoBehaviour
             {
                 DestroyWave();
                 _currentLevel.AllWavesCleared = true;
+                DestroyWavesManagerWhenAllCleared();
             }
             else if (_currentWave.GoToNextWave)
             {
@@ -50,6 +52,14 @@ public class WavesManager : MonoBehaviour
                 ChangeWave();
             }
         }
+    }
+    /// <summary>
+    /// Désactive puis détruit le GameObject du WavesManager.
+    /// </summary>
+    private void DestroyWavesManagerWhenAllCleared()
+    {  
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
     /// <summary>
     /// Détruit une Wave si elle existe et assigne à null ses références.

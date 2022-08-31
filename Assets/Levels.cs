@@ -6,6 +6,8 @@ public class Levels : MonoBehaviour
     [SerializeField] private SceneLoader _sceneLoader;
     [SerializeField] private IntVariable _currentScene;
     [SerializeField] private GameObject _maestroCharacters;
+    [SerializeField] private StageClearedCanvas _stageClearedCanvas;
+
     private PlayersManager _playersManager;
     private FinalBossesManager _finalBossesManager; public FinalBossesManager FinalBossesManager { get => _finalBossesManager; }
     private DoppelgangersManager _doppelgangersManager; public DoppelgangersManager DoppelgangersManager { get => _doppelgangersManager; }
@@ -34,7 +36,13 @@ public class Levels : MonoBehaviour
     {
         if (_allWavesCleared)
         {
-            _sceneLoader.GoToNextLevel();
+            _playersManager.P1.enabled = false;
+            _playersManager.P2.enabled = false;
+            _stageClearedCanvas.gameObject.SetActive(true);
+            if (_stageClearedCanvas.PressAnyKey)
+            {
+                _sceneLoader.GoToNextLevel();
+            }
         }
     }
     private void GoToNextWaveWhenCleared()
