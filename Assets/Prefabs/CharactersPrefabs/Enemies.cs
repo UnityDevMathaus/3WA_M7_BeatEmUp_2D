@@ -18,10 +18,8 @@ public class Enemies : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("?");
         if (collider.CompareTag("Player"))
         {
-            Debug.Log("?");
             Destroy(gameObject);
         }
     }
