@@ -1,4 +1,4 @@
-public enum Level1Checkpoint
+public enum CheckpointsList
 {
     START,
     CHECK_0,

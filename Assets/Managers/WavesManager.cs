@@ -5,10 +5,12 @@ public class WavesManager : MonoBehaviour
     #region VARIABLES SERIALISEES
     [SerializeField] private Levels _currentLevel;
     [SerializeField] private Waves[] _waves;
+    [SerializeField] private IntVariable _currentCheckpoint;
+    [SerializeField] private IntVariable _currentWaveIndex;
     #endregion
     #region AUTRES VARIABLES
     private Waves _currentWave;
-    private int _currentWaveIndex;
+    private int _currentWaveIndexValue;
     private float _timeForStartingWave;
     #endregion
     #region API UNITY
@@ -18,7 +20,7 @@ public class WavesManager : MonoBehaviour
     }
     void Start()
     {
-        _currentWaveIndex = 0;
+        _currentWaveIndexValue = 0;
         _currentWave = _waves[0];
         _currentWave.gameObject.SetActive(true);
     }
@@ -40,7 +42,7 @@ public class WavesManager : MonoBehaviour
     {
         if (_currentWave && Time.time > _timeForStartingWave + _currentWave.DelayBeforeWaveStart)
         {
-            if (_currentWaveIndex >= _waves.Length - 1)
+            if (_currentWaveIndexValue >= _waves.Length - 1)
             {
                 DestroyWave();
                 _currentLevel.AllWavesCleared = true;
@@ -50,6 +52,9 @@ public class WavesManager : MonoBehaviour
             {
                 _timeForStartingWave = Time.time;
                 ChangeWave();
+            } else
+            {
+                WaveCheckpointPassed();
             }
         }
     }
@@ -68,8 +73,8 @@ public class WavesManager : MonoBehaviour
     {
         if (_currentWave)
         {
-            Destroy(_currentWave.gameObject);
-            _waves[_currentWaveIndex] = null;
+            _currentWave.SetInactiveAndDestroy();
+            _waves[_currentWaveIndexValue] = null;
             _currentWave = null;
         }
     }
@@ -82,9 +87,17 @@ public class WavesManager : MonoBehaviour
     private void ChangeWave()
     {
         DestroyWave();
-        _currentWaveIndex++;
-        _currentWave = _waves[_currentWaveIndex];
-        _currentWave.gameObject.SetActive(true);
+        _currentWaveIndexValue++;
+        _currentWaveIndex.Value = _currentWaveIndexValue;
+        _currentWave = _waves[_currentWaveIndexValue];
+    }
+    private void WaveCheckpointPassed()
+    {
+        if (_currentWave.WaveCheckpoint <= _currentCheckpoint.Value)
+        {
+
+            _currentWave.gameObject.SetActive(true);       
+        }
     }
     #endregion
 }

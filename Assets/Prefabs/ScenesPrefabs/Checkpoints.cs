@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Checkpoints : MonoBehaviour
 {
-    [SerializeField] private Level1Checkpoint _checkpointCondition;
+    [SerializeField] private CheckpointsList _checkpointCondition;
     [SerializeField] private IntVariable _currentCheckpoint;
     private int _checkpointConditionValue;
 

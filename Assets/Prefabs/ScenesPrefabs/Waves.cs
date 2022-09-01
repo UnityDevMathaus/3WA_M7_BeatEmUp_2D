@@ -4,7 +4,9 @@ public class Waves : MonoBehaviour
 {
     #region VARIABLES SERIALISEES
     [SerializeField] private WavesTypes _waveType;
+    [SerializeField] private CheckpointsList _waveCheckpoint; public int WaveCheckpoint { get => (int)_waveCheckpoint; }
     [SerializeField] private float _delayBeforeWaveStart = 2f; public float DelayBeforeWaveStart { get => _delayBeforeWaveStart; }
+    [SerializeField] private BoolVariable _currentWaveIsActive;
     #endregion
     #region AUTRES VARIABLES
     private Levels _currentLevel;
@@ -16,6 +18,7 @@ public class Waves : MonoBehaviour
     #region API UNITY
     void Awake()
     {
+        _currentWaveIsActive.Value = true;
         SettingWavesAtAwake();
         SetWaveType();
     }
@@ -26,6 +29,11 @@ public class Waves : MonoBehaviour
     void Update()
     {
         WavesMecanics();
+    }
+    public void SetInactiveAndDestroy()
+    {
+        _currentWaveIsActive.Value = false;
+        Destroy(gameObject);
     }
     #endregion
     #region FONCTIONS

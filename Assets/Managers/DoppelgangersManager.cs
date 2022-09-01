@@ -11,7 +11,6 @@ public class DoppelgangersManager : MonoBehaviour, IManager
 
     public int EntitiesRemaining()
     {
-        Debug.Log(_doppelgangersCount.Value);
         return _doppelgangersCount.Value;
     }
 }
