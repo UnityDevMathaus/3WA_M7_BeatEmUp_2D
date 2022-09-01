@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Barriers : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private WavesList _creatorWave;
+    [SerializeField] private WavesList _destructorWave;
+
     void Start()
     {
         

@@ -1,0 +1,23 @@
+public enum WavesList
+{
+    WAVE_0,
+    WAVE_1,
+    WAVE_2,
+    WAVE_3,
+    WAVE_4,
+    WAVE_5,
+    WAVE_6,
+    WAVE_7,
+    WAVE_8,
+    WAVE_9,
+    WAVE_10,
+    WAVE_11,
+    WAVE_12,
+    WAVE_13,
+    WAVE_14,
+    WAVE_15,
+    WAVE_16,
+    WAVE_17,
+    WAVE_18,
+    WAVE_19
+}
