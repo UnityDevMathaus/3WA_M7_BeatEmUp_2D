@@ -574,6 +574,10 @@ PrefabInstance:
       propertyPath: _safeZone
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2710714558519211940, guid: cfab922dcfe71e34b942a8492fc82560, type: 3}
+      propertyPath: _levelLimit
+      value: 54.97
+      objectReference: {fileID: 0}
     - target: {fileID: 666735615613970756, guid: cfab922dcfe71e34b942a8492fc82560, type: 3}
       propertyPath: m_Sprite
       value: 
