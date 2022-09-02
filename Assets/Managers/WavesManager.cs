@@ -10,12 +10,14 @@ public class WavesManager : MonoBehaviour
     #endregion
     #region AUTRES VARIABLES
     private Waves _currentWave;
+    private CameraMovements _cameraMovements;
     private int _currentWaveIndexValue;
     private float _timeForStartingWave;
     #endregion
     #region API UNITY
     void Awake()
     {
+        _cameraMovements = _currentLevel.GetComponent<CameraMovements>();
         _timeForStartingWave = Time.time;
     }
     void Start()
@@ -42,7 +44,8 @@ public class WavesManager : MonoBehaviour
     {
         if (_currentWave && Time.time > _timeForStartingWave + _currentWave.DelayBeforeWaveStart)
         {
-            if (_currentWaveIndexValue >= _waves.Length - 1)
+            //_cameraMovements.SafeZone = false;
+            if (_currentWaveIndexValue >= _waves.Length - 1 && _currentWave.GoToNextWave)
             {
                 DestroyWave();
                 _currentLevel.AllWavesCleared = true;
@@ -56,6 +59,9 @@ public class WavesManager : MonoBehaviour
             {
                 WaveCheckpointPassed();
             }
+        } else
+        {
+            
         }
     }
     /// <summary>
@@ -97,6 +103,9 @@ public class WavesManager : MonoBehaviour
         {
 
             _currentWave.gameObject.SetActive(true);       
+        } else
+        {
+            //_cameraMovements.SafeZone = true;
         }
     }
     #endregion

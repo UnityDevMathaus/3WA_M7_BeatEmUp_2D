@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraMovements : MonoBehaviour
 {
     [SerializeField] private Transform _player1Transform;
-    [SerializeField] private bool _safeZone;
+    [SerializeField] private bool _safeZone; public bool SafeZone { get => _safeZone; set => _safeZone = value; }
     [SerializeField] private float _levelLimit = 54.97f;
     [SerializeField] private float[] _checkpointsPosition
     = new float[] { -50f, -40f, -29f, -16f, 2f, 23f, 50f };
@@ -29,7 +29,8 @@ public class CameraMovements : MonoBehaviour
             _positionX = _player1Transform.position.x;
             _positionX = Mathf.Clamp(_positionX, -_levelLimit, _levelLimit);
             _cameraPosition.x = _positionX;
-            _camera.transform.position = Vector3.Lerp(_camera.transform.position, _cameraPosition, 0.2f);
+            //_camera.transform.position = Vector3.Lerp(_camera.transform.position, _cameraPosition, 0.01f);
+            _camera.transform.position = _cameraPosition;
         }
     }
 
