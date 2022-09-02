@@ -27,8 +27,6 @@ public class Barriers : MonoBehaviour
             }
         } else if (_currentWaveIsActive.Value && _currentWave.Value == (int)_creatorWave)
         {
-            Debug.Log(_currentWaveIsActive.Value);
-            Debug.Log(_currentWave.Value);
             _isActive = true;
             _collider.enabled = true;
         }
