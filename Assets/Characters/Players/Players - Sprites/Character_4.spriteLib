@@ -21,22 +21,22 @@ MonoBehaviour:
       m_Hash: -1318903428
       m_Sprite: {fileID: 562532299, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1564936625, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: 1835575934, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_1
       m_Hash: -966520342
       m_Sprite: {fileID: 634652484, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1554505382, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -1044543997, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_2
       m_Hash: 1600995408
       m_Sprite: {fileID: -408161388, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -487885446, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: 253504414, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_3
       m_Hash: 678064326
       m_Sprite: {fileID: 195129255, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -182381900, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -232130952, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 4
   - m_Name: Walking
@@ -47,42 +47,42 @@ MonoBehaviour:
       m_Hash: -1240537755
       m_Sprite: {fileID: 1505936726, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -1939934888, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: 741889708, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_5
       m_Hash: -1056320013
       m_Sprite: {fileID: 1167841639, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1102186649, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -578027953, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_6
       m_Hash: 1476428873
       m_Sprite: {fileID: 1804792903, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -1494206191, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: 730781303, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_7
       m_Hash: 789034207
       m_Sprite: {fileID: 1670831909, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -101970614, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -116143953, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_8
       m_Hash: -1078417074
       m_Sprite: {fileID: -886504028, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1649502269, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: 295950639, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_9
       m_Hash: -926967336
       m_Sprite: {fileID: -691156443, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1697218720, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -657814425, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_10
       m_Hash: -1262309290
       m_Sprite: {fileID: -597763059, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 712172987, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -850081440, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     - m_Name: Brandon_11
       m_Hash: -1010466624
       m_Sprite: {fileID: -761880282, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1299746333, guid: aa2df587515868d408989a74f808a2b9, type: 3}
+      m_SpriteOverride: {fileID: -116284099, guid: ca7cd0399f493a14cb0da2c065103a91, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 8
   - m_Name: Sprinting

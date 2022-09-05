@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Pending
+    m_Hash: 459817765
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Bosses_0
+      m_Hash: 18178954
+      m_Sprite: {fileID: 1486078728, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1486078728, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_1
+      m_Hash: 1980912412
+      m_Sprite: {fileID: -544341192, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -544341192, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_2
+      m_Hash: -283442522
+      m_Sprite: {fileID: -1643670072, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1643670072, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_3
+      m_Hash: -1742982608
+      m_Sprite: {fileID: -254033553, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -254033553, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_4
+      m_Hash: 108570515
+      m_Sprite: {fileID: -2020318820, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2020318820, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 5
+  - m_Name: Walking
+    m_Hash: 1744665739
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Bosses_5
+      m_Hash: 1904187141
+      m_Sprite: {fileID: 917599037, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 917599037, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_6
+      m_Hash: -394869057
+      m_Sprite: {fileID: 1055625104, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1055625104, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_7
+      m_Hash: -1619921367
+      m_Sprite: {fileID: -280310614, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -280310614, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_8
+      m_Hash: 265219000
+      m_Sprite: {fileID: 65223664, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 65223664, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_9
+      m_Hash: 2026494766
+      m_Sprite: {fileID: 1302445998, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1302445998, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_10
+      m_Hash: -525561539
+      m_Sprite: {fileID: -617904968, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -617904968, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_11
+      m_Hash: -1750359637
+      m_Sprite: {fileID: 10456412, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 10456412, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_12
+      m_Hash: 245559313
+      m_Sprite: {fileID: -435856470, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -435856470, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_13
+      m_Hash: 2040905863
+      m_Sprite: {fileID: 1094526751, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1094526751, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    - m_Name: Bosses_14
+      m_Hash: -406760156
+      m_Sprite: {fileID: 1409344009, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1409344009, guid: 6f154a7f72251c84c95c707061b12d3e, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 10
+  m_PrimaryLibraryGUID: 
