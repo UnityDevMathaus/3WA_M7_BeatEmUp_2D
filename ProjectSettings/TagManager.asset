@@ -9,6 +9,9 @@ TagManager:
   - Bosses
   - Enemies
   - Level
+  - WorldEntities
+  - PlayersHits
+  - EnemiesHits
   layers:
   - Default
   - TransparentFX
