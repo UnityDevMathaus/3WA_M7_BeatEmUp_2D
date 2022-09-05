@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1422975447, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+  m_Sprite: {fileID: 82018269, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: -9104619314697280720}
   - component: {fileID: 118264031219003254}
   - component: {fileID: 7748839007643126505}
+  - component: {fileID: 3933783003000040891}
   m_Layer: 13
   m_Name: Enemies
   m_TagString: Untagged
@@ -258,6 +259,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0.6127614, y: 0.50251555}
   m_Size: {x: 0.19746518, y: 0.22310373}
   m_Direction: 0
+--- !u!114 &3933783003000040891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067492241449993523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c57bcef62bfd94c9c3ce0d62620a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyIA: {fileID: 6276180141083483517}
+  _animator: {fileID: 22334742767750520}
 --- !u!1 &3381394015082906437
 GameObject:
   m_ObjectHideFlags: 0

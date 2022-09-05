@@ -7,7 +7,7 @@ public class EnemiesMovements : MonoBehaviour
 
     void Update()
     {
-        if (_ia.IsStarted) 
+        if (_ia.IsStarted && _ia.IsWalking) 
             _parent.position = Vector2.MoveTowards(_parent.position, _ia.Direction, 0.002f);
     }
 }
