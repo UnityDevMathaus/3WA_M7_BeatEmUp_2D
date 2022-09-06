@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f91433b58ea77d4f98b7d4026f45c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 2742886387619626486}
+  _enemyMovements: {fileID: 1247326756905433926}
 --- !u!1 &5356444984488455180
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,4 +454,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parent: {fileID: 2742886387619626486}
-  _ia: {fileID: 6276180141083483517}
+  _enemyIA: {fileID: 6276180141083483517}

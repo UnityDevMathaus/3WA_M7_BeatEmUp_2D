@@ -59,8 +59,78 @@ public class EnemiesStateMachine : MonoBehaviour
     }
     void Update()
     {
-        _animator.SetBool("IsWalking", _enemyIA.IsWalking);
+        FakeInputs();
+        //_animator.SetBool("IsWalking", _enemyIA.IsWalking);
         OnStateUpdate(_currentEnemyState);
+    }
+
+    private void FakeInputs()
+    {
+        _animator.SetBool("iaPressC", _enemyIA.IaPressC);
+        _animator.SetBool("iaPressX", _enemyIA.IaPressX);
+        _animator.SetBool("isMoving", _enemyIA.IsMoving);
+    }
+
+
+    #endregion
+
+    #region ENTER
+    private void OnPendingEnter()
+    {
+    }
+    private void OnWalkingEnter()
+    {
+    }
+    private void OnAttackingEnter()
+    {
+        _animator.SetBool("isFigthing", true);
+    }
+    #endregion
+    #region
+    private void OnPendingUpdate()
+    {
+        if (_enemyIA.IaPressC)
+        {
+            TransitionToState(EnemiesStates.ATTACKING);
+        } else if (_enemyIA.IsMoving)
+        {
+            TransitionToState(EnemiesStates.WALKING);
+        }
+    }
+    private void OnWalkingUpdate()
+    {
+        if(!_enemyIA.IsMoving)
+        {
+            TransitionToState(EnemiesStates.PENDING);
+        } else if (_enemyIA.IaPressC)
+        {
+            TransitionToState(EnemiesStates.ATTACKING);
+        }
+    }
+    private void OnAttackingUpdate()
+    {
+        if (!_enemyIA.IsFighting)
+        {
+            if (_enemyIA.IsMoving)
+            {
+                TransitionToState(EnemiesStates.WALKING);
+            } else
+            {
+                TransitionToState(EnemiesStates.PENDING);
+            }
+        }
+    }
+    #endregion
+    #region EXIT
+    private void OnPendingExit()
+    {
+    }
+    private void OnWalkingExit()
+    {
+    }
+    private void OnAttackingExit()
+    {
+        _animator.SetBool("isFigthing", false);
     }
     #endregion
 }
