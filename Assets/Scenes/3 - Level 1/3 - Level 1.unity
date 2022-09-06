@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.03
+      value: -49.71
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -484,6 +484,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemies (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6172261773071779728, guid: 990884bd8a035a246b167717efae3243, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6467347878488834154, guid: 990884bd8a035a246b167717efae3243, type: 3}
       propertyPath: _waveType
       value: 0
@@ -586,6 +590,10 @@ PrefabInstance:
       propertyPath: _levelLimit
       value: 54.97
       objectReference: {fileID: 0}
+    - target: {fileID: -2710714558519211940, guid: cfab922dcfe71e34b942a8492fc82560, type: 3}
+      propertyPath: _currentCheckpoint
+      value: 
+      objectReference: {fileID: 11400000, guid: cc92405fcb58ab545885e5ecbb927e82, type: 2}
     - target: {fileID: 666735615613970756, guid: cfab922dcfe71e34b942a8492fc82560, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -742,6 +750,10 @@ PrefabInstance:
     - target: {fileID: 6467347878488834154, guid: 990884bd8a035a246b167717efae3243, type: 3}
       propertyPath: _waveCheckpoint
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467347878488834154, guid: 990884bd8a035a246b167717efae3243, type: 3}
+      propertyPath: _delayBeforeWaveStart
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 990884bd8a035a246b167717efae3243, type: 3}
@@ -1657,7 +1669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.34
+      value: -49.9
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1920,7 +1932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.1
+      value: -49.78
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2893,6 +2905,10 @@ PrefabInstance:
     - target: {fileID: 6172261773071779728, guid: 990884bd8a035a246b167717efae3243, type: 3}
       propertyPath: m_Name
       value: Enemies (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172261773071779728, guid: 990884bd8a035a246b167717efae3243, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467347878488834154, guid: 990884bd8a035a246b167717efae3243, type: 3}
       propertyPath: _waveType
@@ -5054,6 +5070,10 @@ PrefabInstance:
       propertyPath: _waveCheckpoint
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6467347878488834154, guid: 990884bd8a035a246b167717efae3243, type: 3}
+      propertyPath: _delayBeforeWaveStart
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 990884bd8a035a246b167717efae3243, type: 3}
 --- !u!4 &1792184841 stripped
@@ -5089,7 +5109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.28
+      value: -49.84
       objectReference: {fileID: 0}
     - target: {fileID: 2742886387619626486, guid: 965e5f306facec546a8b4552f6fe84ce, type: 3}
       propertyPath: m_LocalPosition.y

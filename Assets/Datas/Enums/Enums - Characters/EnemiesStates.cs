@@ -1,5 +1,10 @@
 public enum EnemiesStates
 {
     PENDING,
-    WALKING
+    WALKING,
+    ATTACKING,
+    HOLDING,
+    JUMPING,
+    INJURING,
+    DYING
 }
