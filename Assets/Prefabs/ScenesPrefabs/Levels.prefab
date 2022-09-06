@@ -71,13 +71,15 @@ MonoBehaviour:
   _safeZone: 0
   _levelLimit: 54.97
   _checkpointsPosition:
-  - -50
-  - -40
-  - -29
-  - -16
-  - 2
-  - 23
-  - 50
+  - -54.97
+  - -44.97
+  - -35.27
+  - -19.97
+  - -2.45
+  - 18.8
+  - 45.06
+  _cameraStep: 0
+  _currentCheckpoint: {fileID: 0}
 --- !u!1 &3552070948185486325
 GameObject:
   m_ObjectHideFlags: 0

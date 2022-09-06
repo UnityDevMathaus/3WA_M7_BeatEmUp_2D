@@ -44,7 +44,6 @@ public class WavesManager : MonoBehaviour
     {
         if (_currentWave && Time.time > _timeForStartingWave + _currentWave.DelayBeforeWaveStart)
         {
-            //_cameraMovements.SafeZone = false;
             if (_currentWaveIndexValue >= _waves.Length - 1 && _currentWave.GoToNextWave)
             {
                 DestroyWave();
@@ -61,7 +60,7 @@ public class WavesManager : MonoBehaviour
             }
         } else
         {
-            
+            //_cameraMovements.SafeZone = true;
         }
     }
     /// <summary>
@@ -95,17 +94,18 @@ public class WavesManager : MonoBehaviour
         DestroyWave();
         _currentWaveIndexValue++;
         _currentWaveIndex.Value = _currentWaveIndexValue;
-        _currentWave = _waves[_currentWaveIndexValue];
+        _currentWave = _waves[_currentWaveIndexValue];            
     }
     private void WaveCheckpointPassed()
     {
         if (_currentWave.WaveCheckpoint <= _currentCheckpoint.Value)
         {
-
             _currentWave.gameObject.SetActive(true);       
-        } else
+        } else if (!_currentWave.gameObject.activeInHierarchy && !_cameraMovements.SafeZone)
         {
-            //_cameraMovements.SafeZone = true;
+            _cameraMovements.SafeZone = true;
+            _cameraMovements.LastCheckpoint++;
+            _cameraMovements.CameraStep++;
         }
     }
     #endregion

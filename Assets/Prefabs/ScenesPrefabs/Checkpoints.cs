@@ -13,7 +13,7 @@ public class Checkpoints : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag("WorldPlayers"))
         {
             _currentCheckpoint.Value = _checkpointConditionValue;
             Destroy(gameObject);

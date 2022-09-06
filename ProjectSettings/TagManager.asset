@@ -12,6 +12,7 @@ TagManager:
   - WorldEntities
   - PlayersHits
   - EnemiesHits
+  - WorldPlayers
   layers:
   - Default
   - TransparentFX
