@@ -8,8 +8,21 @@ public class EnemiesStateMachine : MonoBehaviour
         switch (enemiesStates)
         {
             case EnemiesStates.PENDING:
+                OnPendingEnter();
                 break;
             case EnemiesStates.WALKING:
+                OnWalkingEnter();
+                break;
+            case EnemiesStates.ATTACKING:
+                OnAttackingEnter();
+                break;
+            case EnemiesStates.HOLDING:
+                break;
+            case EnemiesStates.JUMPING:
+                break;
+            case EnemiesStates.INJURING:
+                break;
+            case EnemiesStates.DYING:
                 break;
             default:
                 break;
@@ -21,8 +34,21 @@ public class EnemiesStateMachine : MonoBehaviour
         switch (enemiesStates)
         {
             case EnemiesStates.PENDING:
+                OnPendingExit();
                 break;
             case EnemiesStates.WALKING:
+                OnWalkingExit();
+                break;
+            case EnemiesStates.ATTACKING:
+                OnAttackingExit();
+                break;
+            case EnemiesStates.HOLDING:
+                break;
+            case EnemiesStates.JUMPING:
+                break;
+            case EnemiesStates.INJURING:
+                break;
+            case EnemiesStates.DYING:
                 break;
             default:
                 break;
@@ -34,8 +60,21 @@ public class EnemiesStateMachine : MonoBehaviour
         switch (enemiesStates)
         {
             case EnemiesStates.PENDING:
+                OnPendingUpdate();
                 break;
             case EnemiesStates.WALKING:
+                OnWalkingUpdate();
+                break;
+            case EnemiesStates.ATTACKING:
+                OnAttackingUpdate();
+                break;
+            case EnemiesStates.HOLDING:
+                break;
+            case EnemiesStates.JUMPING:
+                break;
+            case EnemiesStates.INJURING:
+                break;
+            case EnemiesStates.DYING:
                 break;
             default:
                 break;

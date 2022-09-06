@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2742886387619626486}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3809860600604867091
 SpriteRenderer:
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: -9104619314697280720}
   - component: {fileID: 3933783003000040891}
   - component: {fileID: 6482086522851317338}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Enemies
   m_TagString: WorldEntities
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -186,6 +186,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7787955219615184895}
+  - {fileID: 1894868255862134989}
   - {fileID: 5253431413930033525}
   - {fileID: 6889506906023697079}
   - {fileID: 8342034234212715603}
@@ -278,6 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7787955219615184895}
   - component: {fileID: 8700616620819642636}
+  - component: {fileID: 3466397364452715003}
   m_Layer: 13
   m_Name: Colliders
   m_TagString: Enemies
@@ -316,6 +318,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0033460557, y: 0.5286791}
   m_Size: {x: 0.35946506, y: 0.85277283}
   m_Direction: 0
+--- !u!114 &3466397364452715003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145733417687557486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d543da82de29c489308374d6433cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyGameObject: {fileID: 2067492241449993523}
 --- !u!1 &3381394015082906437
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +361,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2742886387619626486}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6276180141083483517
 MonoBehaviour:
@@ -360,7 +375,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f91433b58ea77d4f98b7d4026f45c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitsCollider: {fileID: 864665716756985661}
   _enemyMovements: {fileID: 1247326756905433926}
+--- !u!1 &5143251123493978372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1894868255862134989}
+  - component: {fileID: 7100565712042123089}
+  - component: {fileID: 4800949345257624609}
+  m_Layer: 13
+  m_Name: CollidersDetectors
+  m_TagString: EnemiesDetectors
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1894868255862134989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143251123493978372}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2742886387619626486}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7100565712042123089
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143251123493978372}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5454093, y: 0.44837332}
+  serializedVersion: 2
+  m_Radius: 0.1085099
+--- !u!114 &4800949345257624609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143251123493978372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b117f793899c284583496806d424642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyIA: {fileID: 6276180141083483517}
 --- !u!1 &5356444984488455180
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +469,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2742886387619626486}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &864665716756985661
 CircleCollider2D:
@@ -439,7 +517,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2742886387619626486}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1247326756905433926
 MonoBehaviour:

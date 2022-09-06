@@ -16,13 +16,7 @@ public class Enemies : MonoBehaviour
         _renderer.SetEnemiesSprites(_enemyIdentity);
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-        }
-    }
+
 
     void OnDestroy()
     {

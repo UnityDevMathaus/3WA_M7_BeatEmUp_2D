@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4535814313446992461}
   - component: {fileID: 614830476653704089}
   - component: {fileID: 8191659500757025622}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Players
   m_TagString: WorldPlayers
   m_Icon: {fileID: 0}

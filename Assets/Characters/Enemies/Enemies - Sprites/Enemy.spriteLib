@@ -85,4 +85,25 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -1081868795, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 8
+  - m_Name: Attack1
+    m_Hash: -47317214
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Red_18
+      m_Hash: -1666365801
+      m_Sprite: {fileID: -1894213332, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1894213332, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+    - m_Name: Red_19
+      m_Hash: -341150207
+      m_Sprite: {fileID: -633555999, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -633555999, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+    - m_Name: Red_20
+      m_Hash: -1185178266
+      m_Sprite: {fileID: -161724493, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -161724493, guid: b137259c74bb0eb43a87c5fc4698b756, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: 

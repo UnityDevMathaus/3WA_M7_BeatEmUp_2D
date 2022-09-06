@@ -6,6 +6,7 @@ public class EnemiesIA : MonoBehaviour
 
     void Update()
     {
+        _iaPressC = false;
         GoToBeBusy();
     }
     #endregion
@@ -31,11 +32,14 @@ public class EnemiesIA : MonoBehaviour
 
     private bool _isBusy; public bool IsBusy { get => _isBusy; }
     private bool _isInjuring;
-    private bool _hasReachATarget;
+    private bool _hasReachATarget; public bool HasReachATarget { get => _hasReachATarget; set => _hasReachATarget = value; }
     private float _timerForBeBusy;
     private float _randomizeDelayBeBusy = 0.5f;
     private float _randomizeDelayBeBusyWhileStanding = 1.5f;
     private float _randomizeDelayBeBusyWhileLost = 2.5f;
+    private float _timerForFighting;
+    private float _delayFighting = 1f;
+    [SerializeField] private CircleCollider2D _hitsCollider;
 
     [SerializeField] EnemiesMovements _enemyMovements;
     private bool _process; public bool Process { get => _process; }
@@ -72,7 +76,17 @@ public class EnemiesIA : MonoBehaviour
         {
             if (_hasReachATarget)
             {
-                FightATarget();
+                if (Time.time > _timerForFighting)
+                {
+                    _iaPressC = true;
+                    _isFighting = true;
+                    _timerForFighting = Time.time + _delayFighting;
+                    _enemyMovements.DontMove();
+                    FightATarget();                    
+                } else
+                {
+                    _isFighting = false;
+                }               
             } else
             {
                 Move();
@@ -82,7 +96,8 @@ public class EnemiesIA : MonoBehaviour
 
     private void FightATarget()
     {
-        _isFighting = true;
+        //_isFighting = true;
+        Debug.Log("I FIGHT");
     }
 
     private void Move()

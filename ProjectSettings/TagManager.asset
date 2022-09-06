@@ -13,6 +13,7 @@ TagManager:
   - PlayersHits
   - EnemiesHits
   - WorldPlayers
+  - EnemiesDetectors
   layers:
   - Default
   - TransparentFX
@@ -28,8 +29,8 @@ TagManager:
   - Collectibles
   - Players
   - Enemies
-  - 
-  - 
+  - WorldPlayers
+  - WorldEnemies
   - 
   - 
   - 
