@@ -27,12 +27,18 @@ public class CameraMovements : MonoBehaviour
     }
     void Update()
     {
+        _positionX = _player1Transform.position.x;
         if (_lastCheckpoint > _currentCheckpoint.Value)
         {
             X();
         } else
         {
             _safeZone = false;
+        }
+        if (!_safeZone && _camera.transform.position.x != _checkpointsPosition[_cameraStep])
+        {
+            _cameraPosition.x = _checkpointsPosition[_cameraStep];
+            _camera.transform.position = Vector3.MoveTowards(_camera.transform.position, _cameraPosition, 0.01f);
         }
     }
 
@@ -44,13 +50,23 @@ public class CameraMovements : MonoBehaviour
 
     private void X()
     {
+
+        
         if (CameraCanMove() && _safeZone)
         {
-            _positionX = _player1Transform.position.x;
+            float x = Mathf.Abs(_positionX - _camera.transform.position.x);
             _positionX = Mathf.Clamp(_positionX, -_levelLimit, _checkpointsPosition[_cameraStep]);
             _cameraPosition.x = _positionX;
-            //_camera.transform.position = Vector3.Lerp(_camera.transform.position, _cameraPosition, 0.01f);
-            _camera.transform.position = _cameraPosition;
+
+            if (x > 0.05f)
+            {
+                _camera.transform.position = Vector3.MoveTowards(_camera.transform.position, _cameraPosition, 0.05f);
+            }
+            else
+            {
+                _camera.transform.position = _cameraPosition;
+            }
+
         }
     }
 }
