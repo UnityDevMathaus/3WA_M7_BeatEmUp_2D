@@ -15,6 +15,13 @@ public class Inputs : MonoBehaviour
     private bool _canAttack; public bool CanAttack { get => _canAttack; set => _canAttack = value; }
     private bool _canMove; public bool CanMove { get => _canMove; set => _canMove = value; }
 
+    private void Start()
+    {
+        _canJump = true;
+        _canAttack = true;
+        _canMove = true;
+    }
+
     private void PressJump()
     {
         _fireJump = (_canJump) ? Input.GetKeyDown(_jumpKey) : false;

@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class PlayersStateMachine : MonoBehaviour
 {
-    private PlayersStates _currentPlayerState;
+    [SerializeField] private Animator _animator;
     private Players _player;
-    private Animator _animator;
+    private PlayersStates _currentPlayerState;
     //################################################################################################################################
     #region UNITY API
     void Awake()
     {
-        _player = GetComponent<Players>();
-        _animator = GetComponent<Animator>();        
+        _player = GetComponent<Players>();       
     }
     void Start()
     {
@@ -19,11 +18,21 @@ public class PlayersStateMachine : MonoBehaviour
     }
     void Update()
     {
+        PlayerFireInputs();
         OnStateUpdate(_currentPlayerState);
     }
     #endregion
     //################################################################################################################################
     #region INPUTS EVENTS
+    /// <summary>
+    /// Assigne les paramètres d'inputs du PlayersAnimatorController.
+    /// </summary>
+    private void PlayerFireInputs()
+    {
+        _animator.SetBool("pressX", _player.PlayerInputs.FireJump);
+        _animator.SetBool("pressC", _player.PlayerInputs.FireAttack);
+        _animator.SetBool("isMoving", _player.IsMoving);
+    }
     #endregion
     //################################################################################################################################
     #region TRIGGERS EVENTS
@@ -44,7 +53,7 @@ public class PlayersStateMachine : MonoBehaviour
     /// <summary>
     /// Déclenche le trigger "OnInjuring" de l'AnimatorController.
     /// </summary>
-    private void OnInjuring()
+    public void OnInjuring()
     {
         _animator.SetTrigger("OnInjuring");
     }
