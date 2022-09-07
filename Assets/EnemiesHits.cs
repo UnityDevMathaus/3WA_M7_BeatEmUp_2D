@@ -6,7 +6,8 @@ public class EnemiesHits : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            Debug.Log("HITTTTTTTT");
+            PlayersCollisions _playerCollisions = collider.GetComponent<PlayersCollisions>();
+            _playerCollisions.GetInjured();
         }
     }
 }
