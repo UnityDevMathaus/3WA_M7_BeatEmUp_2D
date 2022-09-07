@@ -24,10 +24,10 @@ public class EnemiesIA : MonoBehaviour
         _iaPressC = false;
         _iaPressX = false;
         _isMoving = false;
-        _isFighting = false;
         _isJumping = false;
         _isHolding = false;
         _isDying = false;
+        _isFighting = false;
     } 
 
     private bool _isBusy; public bool IsBusy { get => _isBusy; }
@@ -61,6 +61,32 @@ public class EnemiesIA : MonoBehaviour
                 _isBusy = false;
                 NotBusyAnymore();
             }
+        } else
+        {
+            _isFighting = !StopFightingTime();
+            if (_isFighting)
+            {
+                _hitsCollider.enabled = true;
+                _timeForCombo = Time.time + _delayForCombo;
+                _timerForBeBusy = Time.time + 0.2f;
+            } else
+            {
+                _hitsCollider.enabled = false;
+            }
+        }
+        if (Time.time > _timeForCombo) _comboStep = 0;
+        if (_iaPressC && _timeForCombo > Time.time)
+        {
+            switch (_comboStep)
+            {
+                case 0:
+                    _comboStep = 1;
+                    break;
+                case 1:
+                    _comboStep = 0;
+                    break;
+                default: break;
+            }
         }
     }
 
@@ -70,34 +96,44 @@ public class EnemiesIA : MonoBehaviour
         return (rand % 2 == 0);
     }
 
+    private float _timeForPreventDoubleAttack;
+    private float _delayForPreventDoubleAttack = 0.25f;
+    private float _timeForFighting;
+    private float _delayForFighting = 0.2f;
+    private float _timeForCombo;
+    private float _delayForCombo = 0.3f;
+    private int _comboStep; public int ComboStep { get => _comboStep; }
+    public void StartFightingTime()
+    {
+        _timeForFighting = Time.time + _delayForFighting;
+    }
+    public bool StopFightingTime()
+    {
+        return (Time.time > _timeForFighting);
+    }
     private void DoSomething()
     {
         if (!_isInjuring)
         {
-            if (_hasReachATarget)
+            if (_hasReachATarget && Time.time > _timeForPreventDoubleAttack)
             {
-                if (Time.time > _timerForFighting)
-                {
-                    _iaPressC = true;
-                    _isFighting = true;
-                    _timerForFighting = Time.time + _delayFighting;
-                    _enemyMovements.DontMove();
-                    FightATarget();                    
-                } else
-                {
-                    _isFighting = false;
-                }               
-            } else
+                _timeForPreventDoubleAttack = Time.time + _delayForPreventDoubleAttack;
+                _iaPressC = true;
+                _isFighting = true;
+                StartFightingTime();
+                _enemyMovements.DontMove();
+            }
+            else
             {
                 Move();
             }
         }
     }
 
-    private void FightATarget()
+    private void FightATarget(int c)
     {
         //_isFighting = true;
-        Debug.Log("I FIGHT");
+        Debug.Log("I FIGHT : " + c);
     }
 
     private void Move()

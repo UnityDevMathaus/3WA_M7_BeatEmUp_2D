@@ -148,6 +148,7 @@ public class EnemiesStateMachine : MonoBehaviour
     }
     private void OnAttackingUpdate()
     {
+        _animator.SetFloat("comboStep", _enemyIA.ComboStep);
         if (!_enemyIA.IsFighting)
         {
             if (_enemyIA.IsMoving)
