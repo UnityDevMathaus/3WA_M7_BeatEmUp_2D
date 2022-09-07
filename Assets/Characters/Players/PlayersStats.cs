@@ -26,7 +26,10 @@ public class PlayersStats : MonoBehaviour
             }
         }
     }
-
+    public bool PlayerIsDead()
+    {
+        return (_currentPlayerStats[0].Value >= 0);
+    }
     private void ResetCurrentPlayerHP()
     {
         _currentPlayerStats[0].Value = _playersMaxHP.Value;  

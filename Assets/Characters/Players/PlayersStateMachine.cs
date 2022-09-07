@@ -57,6 +57,7 @@ public class PlayersStateMachine : MonoBehaviour
     private void OnWinning()
     {
         _animator.SetTrigger("OnWinning");
+        TransitionToState(PlayersStates.WINNING);
     }
     /// <summary>
     /// Déclenche le trigger "OnRaging" de l'AnimatorController.
@@ -64,6 +65,7 @@ public class PlayersStateMachine : MonoBehaviour
     public void OnRaging()
     {
         _animator.SetTrigger("OnRaging");
+        TransitionToState(PlayersStates.RAGING);
     }
     /// <summary>
     /// Déclenche le trigger "OnInjuring" de l'AnimatorController.
@@ -71,6 +73,7 @@ public class PlayersStateMachine : MonoBehaviour
     public void OnInjuring()
     {
         _animator.SetTrigger("OnInjuring");
+        TransitionToState(PlayersStates.INJURING);
     }
     /// <summary>
     /// Déclenche le trigger "OnJumping" de l'AnimatorController.
@@ -78,6 +81,7 @@ public class PlayersStateMachine : MonoBehaviour
     private void OnJumping()
     {
         _animator.SetTrigger("OnJumping");
+        TransitionToState(PlayersStates.JUMPING);
     }
     /// <summary>
     /// Déclenche le trigger "OnLanding" de l'AnimatorController.
@@ -85,6 +89,7 @@ public class PlayersStateMachine : MonoBehaviour
     private void OnLanding()
     {
         _animator.SetTrigger("OnLanding");
+        TransitionToState(PlayersStates.PENDING);
     }
     /// <summary>
     /// Déclenche le trigger "OnHolding" de l'AnimatorController.
@@ -92,6 +97,7 @@ public class PlayersStateMachine : MonoBehaviour
     private void OnHolding()
     {
         _animator.SetTrigger("OnHolding");
+        TransitionToState(PlayersStates.HOLDING);
     }
     #endregion
     //################################################################################################################################
@@ -267,10 +273,6 @@ public class PlayersStateMachine : MonoBehaviour
     {
         //Do nothing
     }
-    private void OnInjuringUpdate()
-    {
-        //Do nothing
-    }
     #endregion
     #region 8 - RAGING
     private void OnRagingEnter()
@@ -280,10 +282,6 @@ public class PlayersStateMachine : MonoBehaviour
     private void OnRagingExit()
     {
         //Do nothing  
-    }
-    private void OnRagingUpdate()
-    {
-        //Do nothing
     }
     #endregion
     #region 9 - WINNING
@@ -369,24 +367,38 @@ public class PlayersStateMachine : MonoBehaviour
     #region 6 - JUMPING
     private void OnJumpingEnter()
     {
-        throw new NotImplementedException();
+
     }
     private void OnJumpingExit()
     {
-        throw new NotImplementedException();
+
     }
     private void OnJumpingUpdate()
     {
-        throw new NotImplementedException();
+
     }
     #endregion
     #region 7 - INJURING
     private void OnInjuringEnter()
     {
-        throw new NotImplementedException();
+        _animator.SetBool("isDying", _player.IsDying);
+    }
+    private void OnInjuringUpdate()
+    {
+        if (!_player.IsDying && _player.StopInjuringTime())
+        {
+            TransitionToState(PlayersStates.PENDING);
+        }
     }
     #endregion
     #region 8 - RAGING
+    private void OnRagingUpdate()
+    {
+        if (_player.StopRagingTime())
+        {
+            TransitionToState(PlayersStates.PENDING);
+        }
+    }
     #endregion
     #region 9 - WINNING
     private void OnWinningEnter()

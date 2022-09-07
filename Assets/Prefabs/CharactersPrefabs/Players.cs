@@ -12,6 +12,7 @@ public class Players : MonoBehaviour
     private PlayersInputs _playerInputs; public Inputs PlayerInputs { get => _playerInputs.PlayerInputs; }
     private CharactersRenderers _renderer;
     private PlayersCollisions _playerCollisions;
+    private SpriteRenderer _playerSpriteRenderer;
 
     private IntVariable _playerHP; public IntVariable PlayerHP { get => _playerHP; set => _playerHP = value; }
     private IntVariable _playerMP; public IntVariable PlayerMP { get => _playerMP; set => _playerMP = value; }
@@ -27,6 +28,7 @@ public class Players : MonoBehaviour
         _renderer = GetComponentInChildren<CharactersRenderers>();
         _playerStateMachine = GetComponent<PlayersStateMachine>();
         _playerCollisions = GetComponentInChildren<PlayersCollisions>();
+        _playerSpriteRenderer = _renderer.GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -117,17 +119,46 @@ public class Players : MonoBehaviour
     }
     #endregion
     #region 5 - INJURING
+    private float _timeForInjuring = -0.8f;
+    private float _delayForInjuring = 0.8f;
     private void InjuringMecanics()
     {
         if (_playerCollisions.IsInjuring)
         {
-            StopInputsListening();
-            _playerHP.Value--;
             _playerCollisions.IsInjuring = false;
+            StopInputsListening();
+            StartInjuringTime();                     
+            ResolvePlayerHP();
             _playerStateMachine.OnInjuring();
         } else
         {
             StartInputsListening();
+        }
+        if (!_isDying) SetInjureRenderer();
+    }
+    private void StartInjuringTime()
+    {
+        _timeForInjuring = Time.time;
+    }
+    public bool StopInjuringTime()
+    {
+        return (Time.time > _timeForInjuring + _delayForInjuring);
+    }
+    private void ResolvePlayerHP()
+    {
+        _playerHP.Value--;
+        if (_playerHP.Value == 0) _isDying = true;
+    }
+    private void SetInjureRenderer()
+    {
+        float timing = Time.time - _timeForInjuring;
+        if (0.2f >= timing || (0.4f < timing && 0.6f > timing))
+        {
+            _playerSpriteRenderer.color = Color.red;
+        }
+        else
+        {
+            _playerSpriteRenderer.color = Color.white;
         }
     }
     #endregion
@@ -162,7 +193,7 @@ public class Players : MonoBehaviour
     {
         _timeBeforeRagingEnd = Time.time + _delayForRagingEnd;
     }
-    private bool StopRagingTime()
+    public bool StopRagingTime()
     {
         return (Time.time > _timeBeforeRagingEnd);
     }
@@ -187,7 +218,7 @@ public class Players : MonoBehaviour
     }
     private void StartInputsListening()
     {
-        if (!PlayerInputs.IsListening)
+        if (!PlayerInputs.IsListening && !_isDying)
         {
             PlayerInputs.CanMove = true;
             PlayerInputs.CanAttack = true;
