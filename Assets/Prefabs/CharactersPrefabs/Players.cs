@@ -43,12 +43,7 @@ public class Players : MonoBehaviour
     {
         DebugLife();
         _isMoving = PlayerInputs.FireMove || PlayerInputs.WhileMove;
-        if (_playerCollisions.IsInjuring)
-        {
-            _playerHP.Value--;
-            _playerCollisions.IsInjuring = false;
-            _playerStateMachine.OnInjuring();
-        }
+
     }
     private void DebugLife()
     {
@@ -90,7 +85,12 @@ public class Players : MonoBehaviour
     #region 5 - INJURING
     private void InjuringMecanics()
     {
-
+        if (_playerCollisions.IsInjuring)
+        {
+            _playerHP.Value--;
+            _playerCollisions.IsInjuring = false;
+            _playerStateMachine.OnInjuring();
+        }
     }
     #endregion
     #region 6 - RAGING

@@ -375,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryHash: 0
   m_labelHash: 0
-  m_SpriteKey: -3.3503463e+12
+  m_SpriteKey: 1.907526e+27
 --- !u!95 &171038279009561084
 Animator:
   serializedVersion: 4
