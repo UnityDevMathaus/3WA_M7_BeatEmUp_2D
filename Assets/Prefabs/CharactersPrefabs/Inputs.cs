@@ -10,18 +10,27 @@ public class Inputs : MonoBehaviour
     private bool _fireAttack; public bool FireAttack { get => _fireAttack; }
     private bool _fireMove; public bool FireMove { get => _fireMove; }
     private bool _whileMove; public bool WhileMove { get => _whileMove; }
+    private bool _holdSpecial; public bool HoldSpecial { get => _holdSpecial; }
 
+    private bool _isListening; public bool IsListening { get => _isListening; set => _isListening = value; }
     private bool _canJump; public bool CanJump { get => _canJump; set => _canJump = value; }
     private bool _canAttack; public bool CanAttack { get => _canAttack; set => _canAttack = value; }
+    private bool _canSpecial; public bool CanSpecial { get => _canSpecial; set => _canSpecial = value; }
     private bool _canMove; public bool CanMove { get => _canMove; set => _canMove = value; }
 
     private void Start()
     {
+        _isListening = true;
         _canJump = true;
         _canAttack = true;
         _canMove = true;
+        _canSpecial = true;
     }
 
+    private void HoldJumpAndAttack()
+    {
+        _holdSpecial = (_canSpecial) ? Input.GetKey(_jumpKey) && Input.GetKey(_attackpKey) : false;
+    }
     private void PressJump()
     {
         _fireJump = (_canJump) ? Input.GetKeyDown(_jumpKey) : false;
@@ -58,9 +67,10 @@ public class Inputs : MonoBehaviour
 
     private void ListenInputs()
     {
+        PressMovementsKeys();
         PressJump();
         PressAttack();
-        PressMovementsKeys();
+        HoldJumpAndAttack();     
     }
 
     void Update()

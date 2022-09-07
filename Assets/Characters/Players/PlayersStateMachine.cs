@@ -33,6 +33,21 @@ public class PlayersStateMachine : MonoBehaviour
         _animator.SetBool("pressC", _player.PlayerInputs.FireAttack);
         _animator.SetBool("isMoving", _player.IsMoving);
     }
+    private void PlayerFireJump()
+    {
+        if (_player.PlayerInputs.FireJump && !_player.IsJumping)
+        {
+            OnJumping();
+            TransitionToState(PlayersStates.JUMPING);
+        }
+    }
+    private void PlayerFireAttack()
+    {
+        if (_player.PlayerInputs.FireAttack && !_player.IsJumping && !_player.IsHolding)
+        {
+            TransitionToState(PlayersStates.ATTACKING);
+        }
+    }
     #endregion
     //################################################################################################################################
     #region TRIGGERS EVENTS
@@ -46,7 +61,7 @@ public class PlayersStateMachine : MonoBehaviour
     /// <summary>
     /// Déclenche le trigger "OnRaging" de l'AnimatorController.
     /// </summary>
-    private void OnRaging()
+    public void OnRaging()
     {
         _animator.SetTrigger("OnRaging");
     }
@@ -232,7 +247,14 @@ public class PlayersStateMachine : MonoBehaviour
 
     #endregion
     #region 4 - ATTACKING
-
+    private void OnAttackingEnter()
+    {
+        //Do nothing
+    }
+    private void OnAttackingExit()
+    {
+        //Do nothing
+    }
     #endregion
     #region 5 - HOLDING
 
@@ -241,10 +263,28 @@ public class PlayersStateMachine : MonoBehaviour
 
     #endregion
     #region 7 - INJURING
-
+    private void OnInjuringExit()
+    {
+        //Do nothing
+    }
+    private void OnInjuringUpdate()
+    {
+        //Do nothing
+    }
     #endregion
     #region 8 - RAGING
-
+    private void OnRagingEnter()
+    {
+        //Do nothing
+    }
+    private void OnRagingExit()
+    {
+        //Do nothing  
+    }
+    private void OnRagingUpdate()
+    {
+        //Do nothing
+    }
     #endregion
     #region 9 - WINNING
     private void OnWinningExit()
@@ -257,13 +297,27 @@ public class PlayersStateMachine : MonoBehaviour
     #region 1 - PENDING
     private void OnPendingUpdate()
     {
-        //todo : 
+        PlayerFireJump();
+        PlayerFireAttack();
+        if (_player.IsSprinting)
+        {
+            TransitionToState(PlayersStates.SPRINTING);
+        }
+        else if (_player.IsMoving)
+        {
+            TransitionToState(PlayersStates.WALKING);
+        }
     }
     #endregion
     #region 2 - WALKING
     private void OnWalkingUpdate()
     {
-        throw new NotImplementedException();
+        PlayerFireJump();
+        PlayerFireAttack();
+        if (!_player.IsMoving)
+        {
+            TransitionToState(PlayersStates.PENDING);
+        }
     }
     #endregion
     #region 3 - SPRINTING
@@ -281,17 +335,21 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 4 - ATTACKING
-    private void OnAttackingEnter()
-    {
-        throw new NotImplementedException();
-    }
-    private void OnAttackingExit()
-    {
-        throw new NotImplementedException();
-    }
     private void OnAttackingUpdate()
     {
-        throw new NotImplementedException();
+        _animator.SetBool("isFighting", _player.IsFighting);
+        _animator.SetFloat("comboStep", _player.ComboStep);
+        if (!_player.IsFighting)
+        {
+            if (_player.IsMoving)
+            {
+                TransitionToState(PlayersStates.WALKING);
+            }
+            else
+            {
+                TransitionToState(PlayersStates.PENDING);
+            }
+        }
     }
     #endregion
     #region 5 - HOLDING
@@ -327,28 +385,8 @@ public class PlayersStateMachine : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-    private void OnInjuringExit()
-    {
-        throw new NotImplementedException();
-    }
-    private void OnInjuringUpdate()
-    {
-        throw new NotImplementedException();
-    }
     #endregion
     #region 8 - RAGING
-    private void OnRagingEnter()
-    {
-        throw new NotImplementedException();
-    }
-    private void OnRagingExit()
-    {
-        throw new NotImplementedException();
-    }
-    private void OnRagingUpdate()
-    {
-        throw new NotImplementedException();
-    }
     #endregion
     #region 9 - WINNING
     private void OnWinningEnter()
