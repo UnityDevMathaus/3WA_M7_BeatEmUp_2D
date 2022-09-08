@@ -43,6 +43,8 @@ public class PlayersStateMachine : MonoBehaviour
     }
     private void PlayerFireAttack()
     {
+        _animator.SetBool("isFighting", _player.IsFighting);
+        _animator.SetFloat("comboStep", _player.ComboStep);
         if (_player.PlayerInputs.FireAttack)
         {
             if (!_player.IsJumping && !_player.IsHolding)
@@ -92,7 +94,13 @@ public class PlayersStateMachine : MonoBehaviour
     private void OnLanding()
     {
         _animator.SetTrigger("OnLanding");
-        TransitionToState(PlayersStates.PENDING);
+        if (_player.IsFighting)
+        {
+            TransitionToState(PlayersStates.ATTACKING);
+        } else
+        {
+            TransitionToState(PlayersStates.PENDING);
+        }        
     }
     /// <summary>
     /// Déclenche le trigger "OnHolding" de l'AnimatorController.
@@ -343,6 +351,7 @@ public class PlayersStateMachine : MonoBehaviour
     #region 4 - ATTACKING
     private void OnAttackingUpdate()
     {
+        PlayerFireJump();
         _animator.SetBool("isFighting", _player.IsFighting);
         _animator.SetFloat("comboStep", _player.ComboStep);
         if (!_player.IsFighting)
@@ -386,7 +395,7 @@ public class PlayersStateMachine : MonoBehaviour
     {
         PlayerFireAttack();
         _animator.SetInteger("jumpStep", _player.JumpStep);
-        if (_player.StopJumpingTime())
+        if (_player.StopJumpingTime() && !_player.IsFighting)
         {
             OnLanding();
         }

@@ -66,8 +66,8 @@ public class Players : MonoBehaviour
         InjuringMecanics();
         RagingMecanics();
         MovingMecanics();
-        JumpingMecanics();
         FigthingMecanics();
+        JumpingMecanics();      
         HoldingMecanics();
 
     }
@@ -122,15 +122,16 @@ public class Players : MonoBehaviour
     private int _comboStep; public int ComboStep { get => _comboStep; }
     private float _timeForFighting;
     private float _timeForCombo;
-    private float _delayForFighting = 0.2f;
-    private float _delayForCombo = 0.5f;
+    private float _delayForFighting = 0.3f;
+    private float _delayForCombo = 0.6f;
     private void FigthingMecanics()
     {
         PlayerInputs.CanAttack = !_isFighting;
+        UpdateComboSteps();
         if (PlayerInputs.FireAttack)
         {
             StartFightingTime();
-            StartComboTime();
+            StartComboTime();            
             _isFighting = true;
         } else if (StopFightingTime())
         {
@@ -147,7 +148,6 @@ public class Players : MonoBehaviour
     }
     private void StartComboTime()
     {
-        UpdateComboSteps();
         _timeForCombo = Time.time + _delayForCombo;
     }
     private void UpdateComboSteps()
@@ -227,7 +227,12 @@ public class Players : MonoBehaviour
     }
     private void Groundpound()
     {
-        if (PlayerInputs.FireAttack && !_isMoving) _timeForJumping = Time.time + _delayForGroundPound;
+        if (PlayerInputs.FireAttack && !_isMoving)
+        {
+            _timeForJumping = Time.time + _delayForGroundPound;
+            Debug.Log("GP");
+        }
+        
     }
     #endregion
     #region 5 - INJURING
