@@ -182,9 +182,52 @@ public class Players : MonoBehaviour
     }
     #endregion
     #region 4 - JUMPING
+    private float _timeForJumping;
+    private float _halfJumpingTime;
+    private float _delayForJumping = 1.2f;
+    private float _halfDelayForJumping = 0.6f;
+    private float _delayForGroundPound = 0.4f;
+    private int _jumpStep; public int JumpStep { get => _jumpStep; set => _jumpStep = value; }
     private void JumpingMecanics()
     {
-
+        PlayerInputs.CanJump = !_isJumping;
+        if (PlayerInputs.FireJump)
+        {
+            StartJumpingTime();
+            _isJumping = true;
+        }
+        else if (StopJumpingTime())
+        {
+            _jumpStep = 0;
+            _isJumping = false;
+        } else if (IsHalfJumpTime())
+        {
+            _jumpStep = 1;
+        } else
+        {
+            Groundpound();
+        }
+    }
+    private void StartJumpingTime()
+    {
+        _timeForJumping = Time.time + _delayForJumping;
+        _halfJumpingTime = Time.time + _halfDelayForJumping;
+    }
+    public bool StopJumpingTime()
+    {
+        return (Time.time > _timeForJumping);
+    }
+    public void ForceStopJumpingTime()
+    {
+        _timeForJumping = 0f;
+    }
+    private bool IsHalfJumpTime()
+    {
+        return (Time.time >= _halfJumpingTime);
+    }
+    private void Groundpound()
+    {
+        if (PlayerInputs.FireAttack && !_isMoving) _timeForJumping = Time.time + _delayForGroundPound;
     }
     #endregion
     #region 5 - INJURING

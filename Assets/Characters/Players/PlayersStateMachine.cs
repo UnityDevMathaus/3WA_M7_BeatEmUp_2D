@@ -43,9 +43,12 @@ public class PlayersStateMachine : MonoBehaviour
     }
     private void PlayerFireAttack()
     {
-        if (_player.PlayerInputs.FireAttack && !_player.IsJumping && !_player.IsHolding)
+        if (_player.PlayerInputs.FireAttack)
         {
-            TransitionToState(PlayersStates.ATTACKING);
+            if (!_player.IsJumping && !_player.IsHolding)
+            {
+                TransitionToState(PlayersStates.ATTACKING);
+            }
         }
     }
     #endregion
@@ -372,15 +375,21 @@ public class PlayersStateMachine : MonoBehaviour
     #region 6 - JUMPING
     private void OnJumpingEnter()
     {
-
+        _animator.SetBool("isJumping", true);
     }
     private void OnJumpingExit()
     {
-
+        _animator.SetInteger("jumpStep", 0);
+        _animator.SetBool("isJumping", false);
     }
     private void OnJumpingUpdate()
     {
-
+        PlayerFireAttack();
+        _animator.SetInteger("jumpStep", _player.JumpStep);
+        if (_player.StopJumpingTime())
+        {
+            OnLanding();
+        }
     }
     #endregion
     #region 7 - INJURING
