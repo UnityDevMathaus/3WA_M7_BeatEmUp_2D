@@ -123,13 +123,14 @@ public class Players : MonoBehaviour
     private float _timeForFighting;
     private float _timeForCombo;
     private float _delayForFighting = 0.2f;
-    private float _delayForCombo = 0.2f;
+    private float _delayForCombo = 0.5f;
     private void FigthingMecanics()
     {
         PlayerInputs.CanAttack = !_isFighting;
         if (PlayerInputs.FireAttack)
         {
             StartFightingTime();
+            StartComboTime();
             _isFighting = true;
         } else if (StopFightingTime())
         {
@@ -143,6 +144,34 @@ public class Players : MonoBehaviour
     private bool StopFightingTime()
     {
         return (Time.time > _timeForFighting);
+    }
+    private void StartComboTime()
+    {
+        UpdateComboSteps();
+        _timeForCombo = Time.time + _delayForCombo;
+    }
+    private void UpdateComboSteps()
+    {
+        if (Time.time > _timeForCombo) _comboStep = 0;
+        else if(PlayerInputs.FireAttack)
+        {
+            switch (_comboStep)
+            {
+                case 0:
+                    _comboStep = 1;
+                    break;
+                case 1:
+                    _comboStep = 2;
+                    break;
+                case 2:
+                    _comboStep = 3;
+                    break;
+                case 3:
+                    _comboStep = 0;
+                    break;
+                default: break;
+            }
+        }
     }
     #endregion
     #region 3 - HOLDING
