@@ -73,9 +73,49 @@ public class Players : MonoBehaviour
     }
     #endregion
     #region 1 - MOVING
+    private float _timeForSprinting;
+    private float _timeForChangeDirection;
+    private float _delayForSprinting = 0.2f;
+    private float _delayForChangeDirection = 0.1f;
+    private KeyCode _lastDirectionKey = KeyCode.None;
     private void MovingMecanics()
     {
         _isMoving = PlayerInputs.FireMove || PlayerInputs.WhileMove;
+        if (_isSprinting)
+        {
+            UpdateTimeForChangeDirection();
+            StopSprintingWhenStopMoving();
+        } else
+        {
+            CheckSprinting();
+        }
+    }
+    private void UpdateTimeForChangeDirection()
+    {
+        if (_isMoving) _timeForChangeDirection = Time.time + _delayForChangeDirection;
+    }
+    private void StopSprintingWhenStopMoving()
+    {
+        if (!_isMoving && Time.time > _timeForChangeDirection) _isSprinting = false;
+    }
+    private void CheckSprinting()
+    {
+        if (_lastDirectionKey == KeyCode.None)
+        {
+            if (PlayerInputs.FireMove)
+            {
+                _lastDirectionKey = PlayerInputs.LastDirectionKey;
+                _timeForSprinting = Time.time + _delayForSprinting;
+            }
+        }
+        else
+        {
+            if (Time.time > _timeForSprinting) _lastDirectionKey = KeyCode.None;
+            else if (PlayerInputs.FireMove && !_isSprinting)
+            {
+                _isSprinting = _lastDirectionKey == PlayerInputs.LastDirectionKey;
+            }
+        }
     }
     #endregion
     #region 2 - FIGHTING

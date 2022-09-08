@@ -321,15 +321,20 @@ public class PlayersStateMachine : MonoBehaviour
     #region 3 - SPRINTING
     private void OnSprintingEnter()
     {
-        throw new NotImplementedException();
+        _animator.SetBool("isSprinting", true);
     }
     private void OnSprintingExit()
     {
-        throw new NotImplementedException();
+        _animator.SetBool("isSprinting", false);
     }
     private void OnSprintingUpdate()
     {
-        throw new NotImplementedException();
+        PlayerFireJump();
+        PlayerFireAttack();
+        if (!_player.IsMoving)
+        {
+            TransitionToState(PlayersStates.PENDING);
+        }
     }
     #endregion
     #region 4 - ATTACKING
