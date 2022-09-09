@@ -5,36 +5,32 @@ public class Players : MonoBehaviour
     [SerializeField] private PlayersIdentities _playerIdentity;
     [SerializeField] private CurrentPlayer _currentPlayer;
     [SerializeField] private PlayersInputsList _inputsMode;
-
-    
-
     private PlayersStats _playerStats;
     private PlayersInputs _playerInputs; public Inputs PlayerInputs { get => _playerInputs.PlayerInputs; }
+    private PlayersStateMachine _playerStateMachine;
     private CharactersRenderers _renderer;
-    private PlayersCollisions _playerCollisions;
     private SpriteRenderer _playerSpriteRenderer;
-
+    private PlayersCollisions _playerCollisions;
+    private CircleCollider2D _playerHitsCollider;
     private IntVariable _playerHP; public IntVariable PlayerHP { get => _playerHP; set => _playerHP = value; }
     private IntVariable _playerMP; public IntVariable PlayerMP { get => _playerMP; set => _playerMP = value; }
     private IntVariable _playerLife; public IntVariable PlayerLife { get => _playerLife; set => _playerLife = value; }
-
-    
-
-    private PlayersStateMachine _playerStateMachine;
-    private void Awake()
+    //################################################################################################################################
+    #region UNITY API
+    void Awake()
     {
         _playerStats = GetComponentInChildren<PlayersStats>();
         _playerInputs = GetComponentInChildren<PlayersInputs>();
         _renderer = GetComponentInChildren<CharactersRenderers>();
         _playerStateMachine = GetComponent<PlayersStateMachine>();
         _playerCollisions = GetComponentInChildren<PlayersCollisions>();
+        _playerHitsCollider = GetComponentInChildren<CircleCollider2D>();
         _playerSpriteRenderer = _renderer.GetComponent<SpriteRenderer>();
     }
-
     void Start()
     {
         _playerInputs.ActiveInputs(_inputsMode);
-        _renderer.SetPlayersSprites(_playerIdentity);   
+        _renderer.SetPlayersSprites(_playerIdentity);
         _playerStats.CurrentPlayer = _currentPlayer;
         _playerStats.ResetCurrentPlayerStats();
         _playerHP = _playerStats.CurrentPlayerStats[0];
@@ -45,12 +41,36 @@ public class Players : MonoBehaviour
     {
         DebugLife();
         PlayersMecanics();
+        EnableHits();
     }
+    #endregion
     private void DebugLife()
     {
         if (Input.GetKeyDown(KeyCode.Alpha2)) _playerMP.Value--;
         if (Input.GetKeyDown(KeyCode.Alpha3)) _playerLife.Value--;
     }
+    //################################################################################################################################
+    #region MECANIQUES DES INPUTS
+    private void StartInputsListening()
+    {
+        if (!PlayerInputs.IsListening && !_isDying)
+        {
+            PlayerInputs.CanMove = true;
+            PlayerInputs.CanAttack = true;
+            PlayerInputs.CanJump = true;
+            PlayerInputs.CanSpecial = true;
+            PlayerInputs.IsListening = true;
+        }
+    }
+    private void StopInputsListening()
+    {
+        PlayerInputs.CanMove = false;
+        PlayerInputs.CanAttack = false;
+        PlayerInputs.CanJump = false;
+        PlayerInputs.CanSpecial = false;
+        PlayerInputs.IsListening = false;
+    }
+    #endregion
     //################################################################################################################################
     #region MECANIQUES DES PLAYERS
     private bool _isMoving; public bool IsMoving { get => _isMoving; }
@@ -60,6 +80,7 @@ public class Players : MonoBehaviour
     private bool _isHolding; public bool IsHolding { get => _isHolding; }
     private bool _isDying; public bool IsDying { get => _isDying; }
     #region 0 - BASE
+    private bool _isInvulnerable; public bool IsInvulnerable { get => _isInvulnerable; }
     private void PlayersMecanics()
     {
         WinningMecanics();
@@ -67,9 +88,8 @@ public class Players : MonoBehaviour
         RagingMecanics();
         MovingMecanics();
         FigthingMecanics();
-        JumpingMecanics();      
+        JumpingMecanics();
         HoldingMecanics();
-
     }
     #endregion
     #region 1 - MOVING
@@ -133,9 +153,11 @@ public class Players : MonoBehaviour
             StartFightingTime();
             StartComboTime();            
             _isFighting = true;
+            _isInvulnerable = true;
         } else if (StopFightingTime())
         {
             _isFighting = false;
+            _isInvulnerable = false;
         }
     }
     private void StartFightingTime()
@@ -176,6 +198,7 @@ public class Players : MonoBehaviour
     #endregion
     #region 3 - HOLDING
     private bool _canHold; public bool CanHold { get => _canHold; set => _canHold = value; }
+    private bool _isThrowing;
     private void HoldingMecanics()
     {
         if (PlayerInputs.FireAttack)
@@ -186,7 +209,11 @@ public class Players : MonoBehaviour
             } else
             {
                 _isHolding = false;
+                _isThrowing = true;
             }
+        } else if (!_isFighting)
+        {
+            _isThrowing = false;
         }
     }
     #endregion
@@ -252,6 +279,7 @@ public class Players : MonoBehaviour
     private bool _isInjuring; public bool IsInjuring { get => _isInjuring; }
     private void InjuringMecanics()
     {
+        if (_isInvulnerable) _playerCollisions.IsInjuring = false;
         if (_playerCollisions.IsInjuring)
         {
             _playerCollisions.IsInjuring = false;
@@ -342,23 +370,18 @@ public class Players : MonoBehaviour
     }
     #endregion
     #endregion
-    private void StopInputsListening()
+    //################################################################################################################################
+    #region MECANIQUES DES COLLISIONS
+    private void EnableHits()
     {
-        PlayerInputs.CanMove = false;
-        PlayerInputs.CanAttack = false;
-        PlayerInputs.CanJump = false;
-        PlayerInputs.CanSpecial = false;
-        PlayerInputs.IsListening = false;
-    }
-    private void StartInputsListening()
-    {
-        if (!PlayerInputs.IsListening && !_isDying)
+        if (_isFighting && !_isHolding && !_isThrowing)
         {
-            PlayerInputs.CanMove = true;
-            PlayerInputs.CanAttack = true;
-            PlayerInputs.CanJump = true;
-            PlayerInputs.CanSpecial = true;
-            PlayerInputs.IsListening = true;
+            _playerHitsCollider.enabled = true;
+        } else
+        {
+            _playerHitsCollider.enabled = false;
         }
     }
+    #endregion
+    //################################################################################################################################
 }
