@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayersStateMachine : MonoBehaviour
@@ -33,14 +32,20 @@ public class PlayersStateMachine : MonoBehaviour
         _animator.SetBool("pressC", _player.PlayerInputs.FireAttack);
         _animator.SetBool("isMoving", _player.IsMoving);
     }
+    /// <summary>
+    /// Déclenche OnJumping() lorsque la touche de Jump est déclenchée.
+    /// </summary>
     private void PlayerFireJump()
     {
         if (_player.PlayerInputs.FireJump && !_player.IsJumping)
         {
             OnJumping();
-            TransitionToState(PlayersStates.JUMPING);
         }
     }
+    /// <summary>
+    /// Assigne les parametres "isFighting" et "comboStep" en fonction des valeur de Players.IsFighting et Players.ComboStep, et
+    /// transitionne vers l'état PlayersStates.ATTACKING lorsque la touche d'Attack est déclenchée. 
+    /// </summary>
     private void PlayerFireAttack()
     {
         _animator.SetBool("isFighting", _player.IsFighting);
@@ -59,7 +64,7 @@ public class PlayersStateMachine : MonoBehaviour
     /// <summary>
     /// Déclenche le trigger "OnWinning" de l'AnimatorController.
     /// </summary>
-    private void OnWinning()
+    public void OnWinning()
     {
         _animator.SetTrigger("OnWinning");
         TransitionToState(PlayersStates.WINNING);
@@ -85,8 +90,14 @@ public class PlayersStateMachine : MonoBehaviour
     /// </summary>
     private void OnJumping()
     {
-        _animator.SetTrigger("OnJumping");
-        TransitionToState(PlayersStates.JUMPING);
+        if (_player.IsHolding)
+        {
+            _animator.SetTrigger("OnHoldingJumping");
+        } else
+        {
+            _animator.SetTrigger("OnJumping");
+            TransitionToState(PlayersStates.JUMPING);
+        }
     }
     /// <summary>
     /// Déclenche le trigger "OnLanding" de l'AnimatorController.
@@ -101,6 +112,13 @@ public class PlayersStateMachine : MonoBehaviour
         {
             TransitionToState(PlayersStates.PENDING);
         }        
+    }
+    /// <summary>
+    /// Déclenche le trigger "OnHoldingLanding" de l'AnimatorController.
+    /// </summary>
+    private void OnHoldingLanding()
+    {
+        _animator.SetTrigger("OnHoldingLanding");
     }
     /// <summary>
     /// Déclenche le trigger "OnHolding" de l'AnimatorController.
@@ -261,23 +279,12 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 3 - SPRINTING
-
     #endregion
     #region 4 - ATTACKING
-    private void OnAttackingEnter()
-    {
-        //Do nothing
-    }
-    private void OnAttackingExit()
-    {
-        //Do nothing
-    }
     #endregion
     #region 5 - HOLDING
-
     #endregion
     #region 6 - JUMPING
-
     #endregion
     #region 7 - INJURING
     private void OnInjuringExit()
@@ -296,7 +303,15 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 9 - WINNING
+    private void OnWinningEnter()
+    {
+        //Do nothing
+    }
     private void OnWinningExit()
+    {
+        //Do nothing
+    }
+    private void OnWinningUpdate()
     {
         //Do nothing
     }
@@ -304,6 +319,13 @@ public class PlayersStateMachine : MonoBehaviour
     #endregion
     //################################################################################################################################
     #region 1 - PENDING
+    /// <summary>
+    /// Transitions possibles
+    /// -> Walking
+    /// -> Sprinting
+    /// -> Jumping - PlayerFireJump()
+    /// -> Fighting - PlayerFireAttack()
+    /// </summary>
     private void OnPendingUpdate()
     {
         PlayerFireJump();
@@ -319,6 +341,12 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 2 - WALKING
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending
+    /// -> Jumping - PlayerFireJump()
+    /// -> Fighting - PlayerFireAttack()
+    /// </summary>
     private void OnWalkingUpdate()
     {
         PlayerFireJump();
@@ -330,14 +358,26 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 3 - SPRINTING
+    /// <summary>
+    /// Assigne le parametre "isSprinting" de l'animator à "true".
+    /// </summary>
     private void OnSprintingEnter()
     {
         _animator.SetBool("isSprinting", true);
     }
+    /// <summary>
+    /// Assigne le parametre "isSprinting" de l'animator à "false".
+    /// </summary>
     private void OnSprintingExit()
     {
         _animator.SetBool("isSprinting", false);
     }
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending
+    /// -> Jumping - PlayerFireJump()
+    /// -> Fighting - PlayerFireAttack()
+    /// </summary>
     private void OnSprintingUpdate()
     {
         PlayerFireJump();
@@ -349,6 +389,32 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 4 - ATTACKING
+    /// <summary>
+    /// Assigne le parametre "canHold" de l'animator en fonction de la valeur Players.CanHold.
+    /// Transitions possibles
+    /// -> Holding
+    /// </summary>
+    private void OnAttackingEnter()
+    {
+        _animator.SetBool("canHold", _player.CanHold);
+        if (_player.CanHold)
+        {
+            TransitionToState(PlayersStates.HOLDING);
+        }
+    }
+    /// <summary>
+    /// Assigne le parametre "canHold" de l'animator à "false".
+    /// </summary>
+    private void OnAttackingExit()
+    {
+        _animator.SetBool("canHold", false);
+    }
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending
+    /// -> Walking
+    /// -> Jumping - PlayerFireJump()
+    /// </summary>
     private void OnAttackingUpdate()
     {
         PlayerFireJump();
@@ -368,29 +434,64 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 5 - HOLDING
+    /// <summary>
+    /// Assigne le parametre "isHolding" de l'animator à "true".
+    /// </summary>
     private void OnHoldingEnter()
     {
-        throw new NotImplementedException();
+        _animator.SetBool("isHolding", true);
     }
+    /// <summary>
+    /// Assigne le parametre "isHolding" de l'animator à "false".
+    /// </summary>
     private void OnHoldingExit()
     {
-        throw new NotImplementedException();
+        _animator.SetBool("isHolding", false);
     }
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending
+    /// -> Jumping
+    /// </summary>
     private void OnHoldingUpdate()
     {
-        throw new NotImplementedException();
+        PlayerFireJump();
+        if (!_player.IsHolding)
+        {
+            if (_player.IsJumping)
+            {
+                TransitionToState(PlayersStates.JUMPING);
+            } else
+            {
+                TransitionToState(PlayersStates.PENDING);
+            }
+        } else if (_player.StopJumpingTime())
+        {
+            OnHoldingLanding();
+        }
     }
     #endregion
     #region 6 - JUMPING
+    /// <summary>
+    /// Assigne le parametre "isJumping" de l'animator à "true".
+    /// </summary>
     private void OnJumpingEnter()
     {
         _animator.SetBool("isJumping", true);
     }
+    /// <summary>
+    /// Assigne le parametre et "jumpStep" à 0 et
+    /// le parametre "isJumping" de l'animator à "false".
+    /// </summary>
     private void OnJumpingExit()
     {
         _animator.SetInteger("jumpStep", 0);
         _animator.SetBool("isJumping", false);
     }
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending - OnLanding();
+    /// </summary>
     private void OnJumpingUpdate()
     {
         PlayerFireAttack();
@@ -402,10 +503,17 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 7 - INJURING
+    /// <summary>
+    /// Assigne le parametre "isDying" de l'animator en fonction de la valeur Players.IsDying.
+    /// </summary>
     private void OnInjuringEnter()
     {
         _animator.SetBool("isDying", _player.IsDying);
     }
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending
+    /// </summary>
     private void OnInjuringUpdate()
     {
         if (!_player.IsDying && _player.StopInjuringTime())
@@ -415,6 +523,10 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 8 - RAGING
+    /// <summary>
+    /// Transitions possibles
+    /// -> Pending
+    /// </summary>
     private void OnRagingUpdate()
     {
         if (_player.StopRagingTime())
@@ -424,14 +536,6 @@ public class PlayersStateMachine : MonoBehaviour
     }
     #endregion
     #region 9 - WINNING
-    private void OnWinningEnter()
-    {
-        throw new NotImplementedException();
-    }
-    private void OnWinningUpdate()
-    {
-        throw new NotImplementedException();
-    }
     #endregion
     //################################################################################################################################
 }

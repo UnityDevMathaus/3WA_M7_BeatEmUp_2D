@@ -175,7 +175,7 @@ public class Players : MonoBehaviour
     }
     #endregion
     #region 3 - HOLDING
-
+    private bool _canHold; public bool CanHold { get => _canHold; }
     private void HoldingMecanics()
     {
 
