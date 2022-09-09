@@ -175,10 +175,19 @@ public class Players : MonoBehaviour
     }
     #endregion
     #region 3 - HOLDING
-    private bool _canHold; public bool CanHold { get => _canHold; }
+    private bool _canHold; public bool CanHold { get => _canHold; set => _canHold = value; }
     private void HoldingMecanics()
     {
-
+        if (PlayerInputs.FireAttack)
+        {
+            if (!_isHolding)
+            {
+                _isHolding = _canHold;
+            } else
+            {
+                _isHolding = false;
+            }
+        }
     }
     #endregion
     #region 4 - JUMPING
@@ -187,6 +196,7 @@ public class Players : MonoBehaviour
     private float _delayForJumping = 1.2f;
     private float _halfDelayForJumping = 0.6f;
     private float _delayForGroundPound = 0.4f;
+    private bool _isHoldingJump; public bool IsHoldingJump { get => _isHoldingJump; set => _isHoldingJump = value; }
     private int _jumpStep; public int JumpStep { get => _jumpStep; set => _jumpStep = value; }
     private void JumpingMecanics()
     {
@@ -195,6 +205,7 @@ public class Players : MonoBehaviour
         {
             StartJumpingTime();
             _isJumping = true;
+            _isHoldingJump = _isHolding;
         }
         else if (StopJumpingTime())
         {
@@ -238,6 +249,7 @@ public class Players : MonoBehaviour
     #region 5 - INJURING
     private float _timeForInjuring = -0.8f;
     private float _delayForInjuring = 0.8f;
+    private bool _isInjuring; public bool IsInjuring { get => _isInjuring; }
     private void InjuringMecanics()
     {
         if (_playerCollisions.IsInjuring)
@@ -247,18 +259,23 @@ public class Players : MonoBehaviour
             StartInjuringTime();                     
             ResolvePlayerHP();
             _playerStateMachine.OnInjuring();
-        } else
+        } else if (StopInjuringTime())
         {
+            _isInjuring = false;
             StartInputsListening();
         }
         if (!_isDying) SetInjureRenderer();
     }
     private void StartInjuringTime()
     {
+        _isInjuring = true;
         _timeForInjuring = Time.time;
+        _timeForJumping = Time.time;
+        _halfJumpingTime = Time.time + _halfDelayForJumping;
+        _jumpStep = 1;
     }
     public bool StopInjuringTime()
-    {
+    {       
         return (Time.time > _timeForInjuring + _delayForInjuring);
     }
     private void ResolvePlayerHP()
