@@ -28,7 +28,6 @@ public class PlayersStateMachine : MonoBehaviour
     /// </summary>
     private void PlayerFireInputs()
     {
-        _animator.SetBool("pressX", _player.PlayerInputs.FireJump);
         _animator.SetBool("pressC", _player.PlayerInputs.FireAttack);
         _animator.SetBool("isMoving", _player.IsMoving);
     }
