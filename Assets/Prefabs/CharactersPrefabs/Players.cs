@@ -10,7 +10,7 @@ public class Players : MonoBehaviour
     private PlayersStateMachine _playerStateMachine;
     private CharactersRenderers _renderer;
     private SpriteRenderer _playerSpriteRenderer;
-    private PlayersCollisions _playerCollisions;
+    private PlayersCollisions _playerCollisions; 
     private CircleCollider2D _playerHitsCollider;
     private IntVariable _playerHP; public IntVariable PlayerHP { get => _playerHP; set => _playerHP = value; }
     private IntVariable _playerMP; public IntVariable PlayerMP { get => _playerMP; set => _playerMP = value; }
@@ -380,6 +380,19 @@ public class Players : MonoBehaviour
         } else
         {
             _playerHitsCollider.enabled = false;
+        }
+    }
+    public void ReverseRenderer(int horizontalVelocity)
+    {
+        if (horizontalVelocity == -1)
+        {
+            _renderer.transform.right = Vector2.left;
+            _playerHitsCollider.transform.right = Vector2.left;
+        }
+        else if (horizontalVelocity == 1)
+        {
+            _renderer.transform.right = Vector2.right;
+            _playerHitsCollider.transform.right = Vector2.right;
         }
     }
     #endregion
