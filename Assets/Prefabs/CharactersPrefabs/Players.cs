@@ -30,7 +30,7 @@ public class Players : MonoBehaviour
         _playerInputs.ActiveInputs(_inputsMode);
         _renderer.SetPlayersSprites(_playerIdentity);
         _playerStats.CurrentPlayer = _currentPlayer;
-        _playerStats.ResetCurrentPlayerStats();
+        _playerStats.ResetCurrentPlayerLevelStats();
         _playerHP = _playerStats.CurrentPlayerStats[0];
         _playerMP = _playerStats.CurrentPlayerStats[1];
         _playerLife = _playerStats.CurrentPlayerStats[2];
@@ -299,8 +299,8 @@ public class Players : MonoBehaviour
     }
     private void ResolvePlayerHP()
     {
-        _playerHP.Value--;
-        if (_playerHP.Value == 0) _isDying = true;
+        _playerStats.HitPlayer();
+        if (_playerStats.PlayerIsDead()) _isDying = true;
     }
     private void SetInjureRenderer()
     {
