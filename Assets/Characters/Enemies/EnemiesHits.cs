@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemiesHits : MonoBehaviour
 {
+    //################################################################################################################################
+    #region UNITY API
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
@@ -10,4 +12,6 @@ public class EnemiesHits : MonoBehaviour
             _playerCollisions.GetInjured();
         }
     }
+    #endregion
+    //################################################################################################################################
 }

@@ -11,7 +11,6 @@ public class Players : MonoBehaviour
     private CharactersRenderers _renderer;
     private SpriteRenderer _playerSpriteRenderer;
     private PlayersCollisions _playerCollisions; 
-    private CircleCollider2D _playerHitsCollider;
     private IntVariable _playerHP; public IntVariable PlayerHP { get => _playerHP; set => _playerHP = value; }
     private IntVariable _playerMP; public IntVariable PlayerMP { get => _playerMP; set => _playerMP = value; }
     private IntVariable _playerLife; public IntVariable PlayerLife { get => _playerLife; set => _playerLife = value; }
@@ -24,7 +23,6 @@ public class Players : MonoBehaviour
         _renderer = GetComponentInChildren<CharactersRenderers>();
         _playerStateMachine = GetComponent<PlayersStateMachine>();
         _playerCollisions = GetComponentInChildren<PlayersCollisions>();
-        _playerHitsCollider = GetComponentInChildren<CircleCollider2D>();
         _playerSpriteRenderer = _renderer.GetComponent<SpriteRenderer>();
     }
     void Start()
@@ -39,16 +37,9 @@ public class Players : MonoBehaviour
     }
     void Update()
     {
-        DebugLife();
         PlayersMecanics();
-        EnableHits();
     }
     #endregion
-    private void DebugLife()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2)) _playerMP.Value--;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) _playerLife.Value--;
-    }
     //################################################################################################################################
     #region MECANIQUES DES INPUTS
     private void StartInputsListening()
@@ -198,7 +189,7 @@ public class Players : MonoBehaviour
     #endregion
     #region 3 - HOLDING
     private bool _canHold; public bool CanHold { get => _canHold; set => _canHold = value; }
-    private bool _isThrowing;
+    private bool _isThrowing; public bool IsThrowing { get => _isThrowing; }
     private void HoldingMecanics()
     {
         if (PlayerInputs.FireAttack)
@@ -369,32 +360,6 @@ public class Players : MonoBehaviour
         //PlayerInputs.CanSpecial = false;
     }
     #endregion
-    #endregion
-    //################################################################################################################################
-    #region MECANIQUES DES COLLISIONS
-    private void EnableHits()
-    {
-        if (_isFighting && !_isHolding && !_isThrowing)
-        {
-            _playerHitsCollider.enabled = true;
-        } else
-        {
-            _playerHitsCollider.enabled = false;
-        }
-    }
-    public void ReverseRenderer(int horizontalVelocity)
-    {
-        if (horizontalVelocity == -1)
-        {
-            _renderer.transform.right = Vector2.left;
-            _playerHitsCollider.transform.right = Vector2.left;
-        }
-        else if (horizontalVelocity == 1)
-        {
-            _renderer.transform.right = Vector2.right;
-            _playerHitsCollider.transform.right = Vector2.right;
-        }
-    }
     #endregion
     //################################################################################################################################
 }

@@ -122,7 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685aad13bc948a441b512b87686ff474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerRenderer: {fileID: 8069828797336245141}
   _playerMovementsOnX: {fileID: 1797605400887375348}
   _playerMovementsOnY: {fileID: 93237449564261771}
 --- !u!1 &2320391672142535340
@@ -318,7 +317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 562532299, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
+  m_Sprite: {fileID: -1147195547, guid: a70cecb4fbb47144ca2174c8b9d9424e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -406,6 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3429395433214591444}
   - component: {fileID: 6860575631042430947}
+  - component: {fileID: 3449803957519897645}
   m_Layer: 12
   m_Name: HitsColliders
   m_TagString: PlayersHits
@@ -444,6 +444,19 @@ CircleCollider2D:
   m_Offset: {x: 0.6902929, y: 0.4873891}
   serializedVersion: 2
   m_Radius: 0.10780656
+--- !u!114 &3449803957519897645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092625709291355846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a5b83a1d08b1b41b0dda19126a74a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 8051238458886565272}
 --- !u!1 &6093809381212440706
 GameObject:
   m_ObjectHideFlags: 0
