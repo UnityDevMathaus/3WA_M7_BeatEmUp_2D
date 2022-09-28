@@ -4,12 +4,12 @@ public class CharactersRenderers : MonoBehaviour
 {
     [SerializeField] private Sprite[] _sprites;
     private SpriteRenderer _renderer;
-
+    //################################################################################################################################
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
     }
-
+    //################################################################################################################################
     public void SetPlayersSprites(PlayersIdentities _playerIdentity)
     {
         _renderer.sprite = _sprites[(int)_playerIdentity];
@@ -28,5 +28,15 @@ public class CharactersRenderers : MonoBehaviour
     public void SetSpritesByIndex(int index)
     {
         _renderer.sprite = _sprites[index];
+    }
+
+    public void DisableRenderer()
+    {
+        _renderer.enabled = false;
+    }
+
+    public void EnableRenderer()
+    {
+        _renderer.enabled = true;
     }
 }

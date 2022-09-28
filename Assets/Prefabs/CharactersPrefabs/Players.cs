@@ -259,9 +259,7 @@ public class Players : MonoBehaviour
         if (PlayerInputs.FireAttack && !_isMoving)
         {
             _timeForJumping = Time.time + _delayForGroundPound;
-            Debug.Log("GP");
         }
-        
     }
     #endregion
     #region 5 - INJURING
