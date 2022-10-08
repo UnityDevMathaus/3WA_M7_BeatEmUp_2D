@@ -9,6 +9,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private IntVariable _currentScene;
     [SerializeField] private TextMeshProUGUI _progressValue;
     [SerializeField] private Transform _progressBarTransform;
+    [SerializeField] private BoolVariable _soundIsOn;
     //################################################################################################################################
     private float _timeBeforeClickAvailable;
     private float _delayForClickAvailable = 2.1f;
@@ -21,6 +22,7 @@ public class StartGame : MonoBehaviour
     void Awake()
     {
         _currentScene.Value = SceneManager.GetActiveScene().buildIndex;
+        _soundIsOn.Value = true;
     }
     void Start()
     {
