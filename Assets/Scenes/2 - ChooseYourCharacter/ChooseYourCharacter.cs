@@ -4,38 +4,58 @@ using UnityEngine.UI;
 
 public class ChooseYourCharacter : MonoBehaviour
 {
-    [SerializeField] GameObject _1P;
-    [SerializeField] GameObject _2P;
-    [SerializeField] Sprite _showInputs1P;
-    [SerializeField] Sprite _showInputs2P;
-    [SerializeField] Image _showInputsImage;
+    [SerializeField] private GameObject _1P;
+    [SerializeField] private GameObject _2P;
+    [SerializeField] private GameObject _addons;
+    [SerializeField] private Sprite _showInputs1P;
+    [SerializeField] private Sprite _showInputs2P;
+    [SerializeField] private Image _canvas;
+    [SerializeField] private Image _showInputsImage;
+    [SerializeField] private Animator _managerAnimator;
     [SerializeField] private IntVariable _currentCharacterSelectedByP1;
     [SerializeField] private IntVariable _currentCharacterSelectedByP2;
+    [SerializeField] private DialogsBoxReader _dialogBoxReader;
+    [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private AudioClip[] _nextMusics;
+    [SerializeField] private AudioClip[] _sfxSounds;
+    [SerializeField] private CharactersSelectors[] _characters;
     //################################################################################################################################
     #region UNITY API
+    private AudioSource _audioSource;
     void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
     }
     void Start()
     {
+        _addons.SetActive(true);
         _currentCharacterSelectedByP1.Value = 0;
         _currentCharacterSelectedByP2.Value = 0;
-        _timeForNextPrintChar = Time.time + _delayForPrintChar;
-        _currentDialogText = _textList[0];
-        _currentCharIndex = 0;
-        _currentTextIndex = 0;
-        _writeNextText = true;
-        _writeCurrentDialogText = "";
+        _dialogBoxReader.SetTextList(_textList);
+        _canvas.enabled = true;
+        _canvas.canvasRenderer.SetAlpha(0f);
     }
     void Update()
     {
         if (_allCharacterIsSelected)
         {
-            _dialogsDialogsBox.gameObject.SetActive(true);
-            WriteNextText();
+            _showInputsImage.enabled = false;
+            if (Time.time > _startGameTimer + _delayStartGame)
+            {
+                if (_startGame && !_soundManager.IsPlaying)
+                {
+                    CloseMenu();
+                } else
+                {
+                    OpenTheDoor();
+                }
+                
+            }
         } else
         {
             CharacterSelectMecanics();
+            _startGameTimer = Time.time;
+
         }  
     }
     #endregion
@@ -45,8 +65,6 @@ public class ChooseYourCharacter : MonoBehaviour
     private int _select1PCharacter; public int Select1PCharacter { get => _select1PCharacter; set => _select1PCharacter = Mathf.Clamp(value, 0, 4); }
     private int _select2PCharacter; public int Select2PCharacter { get => _select2PCharacter; set => _select2PCharacter = Mathf.Clamp(value, 0, 4); }
     private bool _allCharacterIsSelected;
-
-
     private void CharacterSelectMecanics()
     {
         CharacterSelectModeMecanics();
@@ -75,6 +93,7 @@ public class ChooseYourCharacter : MonoBehaviour
     {
         if (!_isCharacterSelectMode && _fireX)
         {
+            _soundManager.PlayClip(_sfxSounds[1]);
             _isCharacterSelectMode = true;
             _currentCharacterSelectedByP1.Value = 2;
             if (_selectMode == 1) _currentCharacterSelectedByP2.Value = 1;
@@ -85,10 +104,12 @@ public class ChooseYourCharacter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             SetMode2P();
+            _soundManager.PlayClip(_sfxSounds[0]);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             SetMode1P();
+            _soundManager.PlayClip(_sfxSounds[0]);
         }      
     }
     private void SetMode1P()
@@ -138,7 +159,6 @@ public class ChooseYourCharacter : MonoBehaviour
     {
         _fireX = Input.GetKeyDown(KeyCode.X);
         _fireC = Input.GetKeyDown(KeyCode.C);
-
     }
     private void GetInputs2P()
     {
@@ -153,10 +173,12 @@ public class ChooseYourCharacter : MonoBehaviour
         if (Input.GetKeyDown(right))
         {
             value.Value = Mathf.Clamp(value.Value + 1, 1, 5);
+            _soundManager.PlayClip(_sfxSounds[0]);
         }
         else if (Input.GetKeyDown(left))
         {
             value.Value = Mathf.Clamp(value.Value - 1, 1, 5);
+            _soundManager.PlayClip(_sfxSounds[0]);
         }
     }
     private void ExitCharacterSelectMode()
@@ -184,83 +206,119 @@ public class ChooseYourCharacter : MonoBehaviour
         {
             if (_P1choice != 0 && _fireC) _P1choice = 0;
             else if (_P1choice == 0 && _fireX)
-                _P1choice = (_P2choice != _currentCharacterSelectedByP1.Value) ? _currentCharacterSelectedByP1.Value : 0;
+            {
+                _P1choice = _currentCharacterSelectedByP1.Value;
+                _soundManager.PlayClip(_sfxSounds[1]);
+            }              
             _allCharacterIsSelected = _P1choice != 0;
         } else
         {
             if (_P1choice != 0 && _fireV) _P1choice = 0;
-            else if (_P1choice == 0 && _fireC) _P1choice = _currentCharacterSelectedByP1.Value;
+            else if (_P1choice == 0 && _fireC)
+            {
+                if (_P2choice != _currentCharacterSelectedByP1.Value)
+                {
+                    _P1choice = _currentCharacterSelectedByP1.Value;
+                    _soundManager.PlayClip(_sfxSounds[1]);
+                } else
+                {
+                    _P1choice = 0;
+                    _soundManager.PlayClip(_sfxSounds[2]);
+                }
+            }
             if (_P2choice != 0 && _firePeriod) _P2choice = 0;
             else if (_P2choice == 0 && _fireComma)
-                _P2choice = (_P1choice != _currentCharacterSelectedByP2.Value) ? _currentCharacterSelectedByP2.Value : 0;
+            {
+                if (_P1choice != _currentCharacterSelectedByP2.Value)
+                {
+                    _P2choice = _currentCharacterSelectedByP2.Value;
+                    _soundManager.PlayClip(_sfxSounds[1]);
+                }
+                else
+                {
+                    _P2choice = 0;
+                    _soundManager.PlayClip(_sfxSounds[2]);
+                }
+            }
             _allCharacterIsSelected = (_P1choice != 0 && _P2choice != 0);
         }
-    }
-    private void WaitManager()
-    {
-        if (!_allCharacterIsSelected) _waitManagerTalkTime = Time.time;
-        else
+        if (_allCharacterIsSelected)
         {
-            if (Time.time > _waitManagerTalkTime + _delayManagerTalk)
+            foreach (CharactersSelectors item in _characters)
             {
-                Debug.Log("Tak");
+                item.DisableArrows();
             }
+            
         }
     }
     #endregion
     //################################################################################################################################
-    private float _delayManagerTalk = 2f;
-    private float _waitManagerTalkTime;
+    private float _startGameTimer;
+    private float _delayStartGame = 0.5f;
+    private float _startMusicTimer;
+    private float _delayStartMusicTimer = 0.2f;
     private int _counterManagerText = 3;
+    private bool _changeMusic;
+    private bool _startGame;
     private string[] _textList = { Dialogs.SELECT_TEXT0, Dialogs.SELECT_TEXT1, Dialogs.SELECT_TEXT2};
-    private string _currentDialogText;
-    private string _writeCurrentDialogText;
-    private int _currentCharIndex;
-    private int _currentTextIndex;
-    private float _timeForNextPrintChar;
-    private float _delayForPrintChar = 0.2f;
-    private bool _writeNextText;
-    private void WriteNextText()
+    private void OpenTheDoor()
     {
-        if (_currentCharIndex >= _currentDialogText.Length)
+        ChangeMusic();
+        if (_dialogBoxReader.isActiveAndEnabled)
         {
-            _timeForNextPrintChar = Time.time + 3f;
-            SelectTextToWrite();
-        }
-        else
+            _dialogBoxReader.WriteNextText();
+            if (_dialogBoxReader.ReadingIsOver && !_startGame)
+            {
+                _soundManager.PlayClip(_sfxSounds[3]);
+                _canvas.CrossFadeAlpha(1.0f, _sfxSounds[3].length, false);
+                _startGame = true;
+            }
+        } else
         {
-            //PlaySound();
-            WriteNextChar();
+            _dialogBoxReader.gameObject.SetActive(true);
         }
     }
-    private void SelectTextToWrite()
+    private void ChangeMusic()
     {
-        if (!IsLastText())
+        if (_startGameTimer == 0)
         {
-            _currentTextIndex++;
-            _currentDialogText = _textList[_currentTextIndex];
-            _writeCurrentDialogText = "";
-            _currentCharIndex = 0;
+            _startGameTimer = Time.time + _delayStartMusicTimer;
         }
-        else
+        else if(Time.time > _startGameTimer)
         {
-            SceneManager.LoadScene(3);
+            if (_changeMusic != _allCharacterIsSelected)
+            {
+                _audioSource.clip = _nextMusics[0];
+                _audioSource.Play();
+                _audioSource.loop = false;
+                _changeMusic = _allCharacterIsSelected;
+                _startGameTimer = Time.time + _delayStartMusicTimer;
+                _managerAnimator.SetTrigger("OnSelectCharacter");          
+            }
+        }
+        if (!_audioSource.isPlaying)
+        {
+            PlayCharacterAnimation(_currentCharacterSelectedByP1);
+            PlayCharacterAnimation(_currentCharacterSelectedByP2);
+            _audioSource.clip = _nextMusics[1];
+            _audioSource.Play();
         }
     }
-    private bool IsLastText()
+    private void CloseMenu()
     {
-        return _currentTextIndex == _textList.Length - 1;
+        SceneManager.LoadScene(3);
     }
-    //private void PlaySound()
-    //{
-    //    if (_currentCharIndex != 0 && _currentCharIndex % 5 == 0) _audioSource.Play();
-    //}
-    [SerializeField] private DialogsBox _dialogsDialogsBox;
-    private void WriteNextChar()
+    private void PlayCharacterAnimation(IntVariable selectedCharacter)
     {
-        _writeCurrentDialogText += _currentDialogText[_currentCharIndex];
-        _dialogsDialogsBox.ChangeText(_writeCurrentDialogText);
-        _currentCharIndex++;
+        int value = selectedCharacter.Value;
+        if (value != 0)
+        {
+            CharactersSelectors character = _characters[value - 1];
+            Animator animator = character.GetComponentInChildren<Animator>();
+            character.Jump();
+            animator.SetFloat("CharacterChoice", selectedCharacter.Value);
+            animator.SetTrigger("OnCharacterSelect");
+        }
     }
     //################################################################################################################################
 }

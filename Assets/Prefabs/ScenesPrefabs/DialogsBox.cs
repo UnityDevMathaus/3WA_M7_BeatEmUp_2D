@@ -11,10 +11,19 @@ public class DialogsBox : MonoBehaviour
     private float _timeForNextAlphaValue;
     private float _delayForNextAlphaValueAtStart = 2f;
     private float _delayForNextAlphaValue = 0.1f;
-    private void Start()
+
+    void Awake()
     {
         _currentText = "";
         _newText = "";
+    }
+    private void Start()
+    {
+
+        foreach (TextMeshProUGUI textMesh in _allTextMesh)
+        {
+            textMesh.text = _newText;
+        }
         _alphaValue = 0f;
         _timeForNextAlphaValue = Time.time + _delayForNextAlphaValueAtStart;
     }

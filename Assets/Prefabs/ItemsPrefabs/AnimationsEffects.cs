@@ -36,6 +36,12 @@ public class AnimationsEffects : MonoBehaviour
                 case AnimationsEffectsList.DUST2:
                     _animator.SetTrigger("OnDust2");
                     break;
+                case AnimationsEffectsList.JUMPDUST:
+                    _animator.SetTrigger("OnJump");
+                    break;
+                case AnimationsEffectsList.LANDDUST:
+                    _animator.SetTrigger("OnLand");
+                    break;
                 default:
                     break;
             }

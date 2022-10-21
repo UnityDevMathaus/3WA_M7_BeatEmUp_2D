@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1560504836518386476
 CanvasRenderer:
@@ -89,7 +89,7 @@ Animator:
   m_GameObject: {fileID: 1560504836518386475}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0b266fddea73807408776912db39432d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 35a91bbf3ca44094cbf9141e9b3e3b02, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayForNextSound: 0.5
+  _animationEffects: 0
 --- !u!212 &394913974507344379
 SpriteRenderer:
   m_ObjectHideFlags: 0

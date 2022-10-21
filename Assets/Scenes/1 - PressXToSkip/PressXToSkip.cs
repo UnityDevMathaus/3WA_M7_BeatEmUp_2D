@@ -8,8 +8,9 @@ public class PressXToSkip : MonoBehaviour
     [SerializeField] private IntVariable _currentScene;
     [SerializeField] private DialogsBox _skipDialogsBox;
     [SerializeField] private DialogsBox _dialogsDialogsBox;
-    [SerializeField] private AudioClip[] _audioClips;
+    [SerializeField] DialogsBoxReader _dialogBoxReader;
     [SerializeField] Transform _cartridgeTransform;
+    [SerializeField] private AudioClip[] _audioClips;
     [SerializeField] private GameObject[] _effects;
     //################################################################################################################################
     private string[] _textList = { Dialogs.PRELOAD_TEXT0, Dialogs.PRELOAD_TEXT1,
@@ -26,82 +27,14 @@ public class PressXToSkip : MonoBehaviour
     }
     void Start()
     {
-        _timeForNextSound = Time.time + _delayForNextSound;
-        _timeForNextPrintChar = Time.time + _delayForPrintChar;
-        _currentDialogText = _textList[0];
-        _currentCharIndex = 0;
-        _currentTextIndex = 0;
-        _repeat = 0;
-        _writeNextText = true;
-        _writeCurrentDialogText = "";
         _audioClipIndex = 0;
+        _dialogBoxReader.SetTextList(_textList);
+        _dialogBoxReader.gameObject.SetActive(true);
+        _skipDialogsBox.ChangeText("PRESS X TO SKIP");
     }
     void Update()
     {
         GoToNextMenu();
-    }
-    #endregion
-    //################################################################################################################################
-    #region Mecanique des dialogues
-    private string _currentDialogText;
-    private string _writeCurrentDialogText;
-    private int _currentCharIndex;
-    private int _currentTextIndex;
-    private float _timeForNextPrintChar;
-    private float _delayForPrintChar = 0.2f;
-    private bool _writeNextText;
-    private int _repeat;
-    private void WriteNextText()
-    {
-        if (_currentCharIndex >= _currentDialogText.Length)
-        {
-            _timeForNextPrintChar = Time.time + 3f;
-            SelectTextToWrite();
-        }
-        else
-        {
-            PlaySound();
-            WriteNextChar();
-        }
-    }
-    private void SelectTextToWrite()
-    {
-        if (!IsLastText())
-        {
-            _currentTextIndex++;
-            _currentDialogText = _textList[_currentTextIndex];
-            _writeCurrentDialogText = "";
-            _currentCharIndex = 0;
-        }
-        else
-        {
-            ContinueToWrite();
-        }
-    }
-    private bool IsLastText()
-    {
-        return _currentTextIndex == _textList.Length - 1;
-    }
-    private void ContinueToWrite()
-    {
-        _writeNextText = (_repeat == 4) ? false : true;
-        if (_writeNextText)
-        {
-            _repeat++;
-            _writeCurrentDialogText = "";
-            _currentCharIndex = 0;         
-            if (_repeat == 4) _currentDialogText = " ";// L'espace est important !
-        }
-    }
-    private void PlaySound()
-    {
-        if (_currentCharIndex != 0 && _currentCharIndex % 5 == 0) _audioSource.Play();
-    }
-    private void WriteNextChar()
-    {
-        _writeCurrentDialogText += _currentDialogText[_currentCharIndex];
-        _dialogsDialogsBox.ChangeText(_writeCurrentDialogText);
-        _currentCharIndex++;
     }
     #endregion
     //################################################################################################################################
@@ -141,13 +74,7 @@ public class PressXToSkip : MonoBehaviour
         {
             _skipDialogsBox.ChangeAlpha();
         }
-        if (!_audioSource.isPlaying && _writeNextText)
-        {
-            if (Time.time > _timeForNextPrintChar)
-            {
-                WriteNextText();
-            }
-        }
+        _dialogBoxReader.WriteNextText();
     }
     private void MoveCartridge()
     {
