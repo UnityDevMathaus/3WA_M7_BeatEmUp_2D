@@ -7,7 +7,7 @@ public class DialogsBox : MonoBehaviour
     private string _currentText;
     private string _newText;
     private float _alphaValue; public float AlphaValue { get => _alphaValue; }
-    private float _alphaIncrement = 0.2f;
+    [SerializeField] private float _alphaIncrement = 0.2f;
     private float _timeForNextAlphaValue;
     private float _delayForNextAlphaValueAtStart = 2f;
     private float _delayForNextAlphaValue = 0.1f;
@@ -49,13 +49,12 @@ public class DialogsBox : MonoBehaviour
         if (Time.time > _timeForNextAlphaValue)
         {
             _timeForNextAlphaValue = Time.time + _delayForNextAlphaValue;
+            _alphaValue += _alphaIncrement;
+            _alphaValue = Mathf.Clamp(_alphaValue, 0f, 1f);
             foreach (TextMeshProUGUI textMesh in _allTextMesh)
             {
                 textMesh.alpha = _alphaValue;
             }
-            _alphaValue += _alphaIncrement;
-            _alphaValue = Mathf.Clamp(_alphaValue, 0f, 1f);
         }
-
     }
 }
