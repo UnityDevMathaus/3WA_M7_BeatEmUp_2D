@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/8 - Credits/8 - Credits.unity
     guid: b59013adc0632fb42a7a326c842773c1
   - enabled: 1
+    path: Assets/Scenes/9 - KillScreen/9 - KillScreen.unity
+    guid: 2b9b8b9db7d6dcf488e8004b44defa8f
+  - enabled: 1
     path: Assets/Scenes/X - GameOver/X - GameOver.unity
     guid: 3b9512789dde20d4ba54769c27f7023c
   m_configObjects: {}

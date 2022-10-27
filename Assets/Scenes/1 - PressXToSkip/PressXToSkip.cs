@@ -1,86 +1,80 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class PressXToSkip : MonoBehaviour
 {
-    //################################################################################################################################
-    [SerializeField] private SceneLoader _sceneLoader;
-    [SerializeField] private IntVariable _currentScene;
+    //##### SERIALIZE FIELD REFERENCES ###############################################################################################
     [SerializeField] private DialogsBox _skipDialogsBox;
     [SerializeField] private DialogsBox _dialogsDialogsBox;
-    [SerializeField] DialogsBoxReader _dialogBoxReader;
-    [SerializeField] Transform _cartridgeTransform;
+    [SerializeField] private DialogsBoxReader _dialogBoxReader;
+    [SerializeField] private Transform _cartridgeTransform;
+    //##### SERIALIZE FIELD ARRAYS ###################################################################################################
     [SerializeField] private AudioClip[] _audioClips;
     [SerializeField] private GameObject[] _effects;
+    //##### TIMERS ###################################################################################################################
+    private float _timeForNextSound;
+    private float _delayForNextSound = 0.5f;
+    //##### OBJECTS ##################################################################################################################
+    private AudioSource _audioSource;
+    //##### REGIONS ##################################################################################################################
+    #region UNITY API
+    void Awake()
+    {
+        InitializeAwakeReferences();
+    }
+    void Start()
+    {
+        InitializeStartReferences();
+    }
+    void Update()
+    {
+        PressXToSkipMecanism();
+        ClosePressXToSkipMecanism();
+    }
+    #endregion
     //################################################################################################################################
-    private string[] _textList = { Dialogs.PRELOAD_TEXT0, Dialogs.PRELOAD_TEXT1,
+    #region FONCTIONS D'INITIALISATION
+    //##### PRIMITIVES ###############################################################################################################
+    private int _audioClipIndex;
+    //##### PRIMITIVES ARRAYS ########################################################################################################
+    private string[] _dialogsList = { Dialogs.PRELOAD_TEXT0, Dialogs.PRELOAD_TEXT1,
                                    Dialogs.PRELOAD_TEXT2, Dialogs.PRELOAD_TEXT3,
                                    Dialogs.PRELOAD_TEXT4, Dialogs.PRELOAD_TEXT5,
                                    Dialogs.PRELOAD_TEXT6, Dialogs.PRELOAD_TEXT7};
     //################################################################################################################################
-    #region UNITY API
-    private AudioSource _audioSource;
-    void Awake()
+    private void InitializeAwakeReferences()
     {
         _audioSource = GetComponent<AudioSource>();
-        _currentScene.Value = SceneManager.GetActiveScene().buildIndex;
     }
-    void Start()
+    private void InitializeStartReferences()
     {
         _audioClipIndex = 0;
-        _dialogBoxReader.SetTextList(_textList);
+        _dialogBoxReader.SetTextList(_dialogsList);
         _dialogBoxReader.gameObject.SetActive(true);
         _skipDialogsBox.ChangeText("PRESS X TO SKIP");
     }
-    void Update()
-    {
-        GoToNextMenu();
-    }
     #endregion
     //################################################################################################################################
-    #region Mecanique du menu
+    #region MECANIQUE DE LA CLASSE
+    //##### PRIMITIVES ###############################################################################################################
     private bool _goToNextMenu;
     private bool _cartridgeIsLanding;
-    private float _timeForNextSound;
-    private float _delayForNextSound = 0.5f;
-    private int _audioClipIndex;
-    private void GoToNextMenu()
+    //################################################################################################################################
+    private void PressXToSkipMecanism()
     {
         if (_goToNextMenu)
         {
-            ChangeMenu();
+            MoveCartridge();
         }
         else
         {
-            MenuMecanics();
+            ReadAllDialogs();
         }
-    }
-    private void ChangeMenu()
-    {
-        MoveCartridge();
-        CloseMenuMecanics();
-    }
-    private void MenuMecanics()
-    {
-        if (_skipDialogsBox.AlphaValue == 1)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                _goToNextMenu = true;
-                DisableText();
-            }
-        }
-        else
-        {
-            _skipDialogsBox.ChangeAlpha();
-        }
-        _dialogBoxReader.WriteNextText();
     }
     private void MoveCartridge()
     {
-        Vector3 last = _cartridgeTransform.position;
+        Vector3 _cartridgePosition = _cartridgeTransform.position;
         _cartridgeTransform.position = Vector2.MoveTowards(_cartridgeTransform.position, new Vector2(_cartridgeTransform.position.x, 51.1f), 2f);
-        if (last == _cartridgeTransform.position && !_cartridgeIsLanding)
+        if (_cartridgePosition == _cartridgeTransform.position && !_cartridgeIsLanding)
         {
             _cartridgeIsLanding = true;
             _effects[0].SetActive(true);
@@ -95,9 +89,32 @@ public class PressXToSkip : MonoBehaviour
             _effects[9].SetActive(true);
         }
     }
-    private void CloseMenuMecanics()
+    private void ReadAllDialogs()
     {
-        if (!_audioSource.isPlaying && Time.time > _timeForNextSound)
+        if (_skipDialogsBox.AlphaValue == 1)
+        {
+            PressXToSkipDialogs();
+        }
+        else
+        {
+            _skipDialogsBox.ChangeAlpha();
+        }
+        _dialogBoxReader.WriteNextText();
+    }
+    private void PressXToSkipDialogs()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _goToNextMenu = true;
+            DisableText();
+        }
+    }
+    #endregion
+    //################################################################################################################################
+    #region MECANIQUE DE CHANGEMENT DE SCENE
+    private void ClosePressXToSkipMecanism()
+    {
+        if (_goToNextMenu && !_audioSource.isPlaying && Time.time > _timeForNextSound)
         {
             _timeForNextSound = Time.time + _delayForNextSound;
             if (_audioClipIndex < _audioClips.Length)

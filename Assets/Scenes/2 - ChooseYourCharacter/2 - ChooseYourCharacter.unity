@@ -530,7 +530,7 @@ MonoBehaviour:
   _addons: {fileID: 1347332145}
   _showInputs1P: {fileID: -1268509110, guid: 64266ea1246d6bd4c8e8f65274ee0163, type: 3}
   _showInputs2P: {fileID: -1122920126, guid: 64266ea1246d6bd4c8e8f65274ee0163, type: 3}
-  _canvas: {fileID: 1863304375}
+  _transitionImage: {fileID: 1863304375}
   _showInputsImage: {fileID: 9403037}
   _managerAnimator: {fileID: 1438611429}
   _currentCharacterSelectedByP1: {fileID: 11400000, guid: 68e15105172f6b141934d4426d3ac862, type: 2}
@@ -1200,23 +1200,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 27693418692998609, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_text
-      value: Hey you guys!!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 968575384425044691, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_text
-      value: Hey you guys!!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7054239767339758321, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_text
-      value: Hey you guys!!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8717895263735586226, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_text
-      value: Hey you guys!!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8717895264745882909, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_text
-      value: Hey you guys!!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8717895264804276452, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_Name
@@ -1312,7 +1312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8717895265606070022, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
       propertyPath: m_text
-      value: Hey you guys!!
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d9adf607045e0b4da454422651b1073, type: 3}
@@ -1745,7 +1745,7 @@ GameObject:
   - component: {fileID: 1863304376}
   - component: {fileID: 1863304375}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TransitionImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

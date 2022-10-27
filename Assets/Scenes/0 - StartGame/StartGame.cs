@@ -1,51 +1,44 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class StartGame : MonoBehaviour
 {
-    //################################################################################################################################
-    [SerializeField] private SceneLoader _sceneLoader;
-    [SerializeField] private IntVariable _currentScene;
-    [SerializeField] private TextMeshProUGUI _progressValue;
+    //##### SERIALIZE FIELD REFERENCES ###############################################################################################
+    [SerializeField] private TextMeshProUGUI _progressValueTMP;
     [SerializeField] private Transform _progressBarTransform;
     [SerializeField] private BoolVariable _soundIsOn;
-    //################################################################################################################################
+    //##### TIMERS ###################################################################################################################
     private float _timeBeforeClickAvailable;
     private float _delayForClickAvailable = 2.1f;
     private float _realDelayForClickAvailable;
-    private bool _canClick;
-    private int _progress;
+    //##### OBJECTS ##################################################################################################################
     private Vector3 _progressBarPosition;
-    //################################################################################################################################
+    //##### REGIONS ##################################################################################################################
     #region UNITY API
     void Awake()
     {
-        _currentScene.Value = SceneManager.GetActiveScene().buildIndex;
-        _soundIsOn.Value = true;
+        InitializeAwakeReferences();
     }
     void Start()
     {
-        StartWaitingTime();
-        _progressBarPosition = _progressBarTransform.position;
+        InitializeStartReferences();
     }
     void Update()
     {
-        ClickToStart();
+        StartGameMecanism();
+        CloseStartGameSceneMecanism();
     }
     #endregion
     //################################################################################################################################
-    private void ClickToStart()
+    #region FONCTIONS D'INITIALISATION
+    private void InitializeAwakeReferences()
     {
-        if (_canClick)
-        {
-            if (Input.GetMouseButtonDown(0)) SceneManager.LoadScene(1);
-        }
-        else
-        {
-            ProgressText();
-            ProgressBar();
-        }
+        _soundIsOn.Value = true;
+    }
+    private void InitializeStartReferences()
+    {
+        StartWaitingTime();
+        _progressBarPosition = _progressBarTransform.position;
     }
     private void StartWaitingTime()
     {
@@ -54,25 +47,49 @@ public class StartGame : MonoBehaviour
         // discutable, mais permet d'éviter le calcul pendant l'update
         // et d'éviter un bug dans le cas où Time.time ne commence pas à 0 en faussant son écart avec _delayForClickAvailable.
     }
+    #endregion
+    //################################################################################################################################
+    #region MECANIQUE DE LA CLASSE
+    //##### PRIMITIVES ###############################################################################################################
+    private bool _canClick;
+    private int _progressValue;
+    //################################################################################################################################
+    private void StartGameMecanism()
+    {
+        if (!_canClick)
+        {
+            ProgressText();
+            ProgressBar();
+        }
+    }
     private void ProgressText()
     {
-        if (_progress < 100)
+        if (_progressValue < 100)
         {
-            _progress = (int)(Time.time * 100 / _realDelayForClickAvailable);
-            _progress = (_progress > 100) ? 100 : _progress;
-            _progressValue.text = _progress.ToString() + '%';
-        } else if (_progressValue.text == "100%")
+            _progressValue = (int)(Time.time * 100 / _realDelayForClickAvailable);
+            _progressValue = (_progressValue > 100) ? 100 : _progressValue;
+            _progressValueTMP.text = _progressValue.ToString() + '%';
+        }
+        else if (_progressValueTMP.text == "100%")
         {
-            _progressValue.text = "CLICK THE SCREEN TO BEGIN";
+            _progressValueTMP.text = "CLICK THE SCREEN TO BEGIN";
             _canClick = true;
         }
     }
     private void ProgressBar()
     {
-        if (_progress < 100)
+        if (_progressValue < 100)
         {
-            _progressBarTransform.position = new Vector3(_progressBarPosition.x + 2.12f * _progress, _progressBarPosition.y, 0);
+            _progressBarTransform.position = new Vector3(_progressBarPosition.x + 2.12f * _progressValue, _progressBarPosition.y, 0);
         }
     }
+    #endregion
+    //################################################################################################################################
+    #region MECANIQUE DE CHANGEMENT DE SCENE
+    private void CloseStartGameSceneMecanism()
+    {
+        if (Input.GetMouseButtonDown(0) && _canClick) SceneManager.LoadScene(1);
+    }
+    #endregion
     //################################################################################################################################
 }
